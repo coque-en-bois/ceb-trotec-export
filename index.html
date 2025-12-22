@@ -3,50 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Générateur SVG - Découpe Laser</title>
+    <title>CEB - Trotec Export</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>🔷 Générateur SVG pour Découpe Laser</h1>
-      </header>
+    <div id="root"></div>
 
-      <div class="controls">
-        <button id="addRow" class="btn btn-primary">
-          ➕ Ajouter une ligne
-        </button>
-        <button id="exportSvg" class="btn btn-success">💾 Exporter SVG</button>
-        <button id="previewSvg" class="btn btn-info">👁️ Prévisualiser</button>
-      </div>
-
-      <div class="table-container">
-        <table id="dataTable">
-          <thead>
-            <tr>
-              <th>Forme</th>
-              <th>X (mm)</th>
-              <th>Y (mm)</th>
-              <th>Largeur (mm)</th>
-              <th>Hauteur (mm)</th>
-              <th>Rayon (mm)</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <!-- Les lignes seront ajoutées dynamiquement -->
-          </tbody>
-        </table>
-      </div>
-
-      <div class="preview-section">
-        <h2>Prévisualisation</h2>
-        <div id="svgPreview" class="svg-preview">
-          <!-- Le SVG sera affiché ici -->
-        </div>
-      </div>
-    </div>
-
-    <script src="renderer.js"></script>
+    <script src="./node_modules/react/umd/react.development.js"></script>
+    <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" src="renderer.js"></script>
   </body>
 </html>

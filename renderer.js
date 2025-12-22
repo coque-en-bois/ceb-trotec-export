@@ -1,129 +1,250 @@
 const { ipcRenderer } = require("electron");
+const { useState, useEffect } = React;
+const fs = require("fs");
+const path = require("path");
 
-let rowCounter = 0;
+// Positions des 14 emplacements du template
+const SLOTS = [
+  { x: 39.3, y: 52.8, width: 238.1, height: 479.1 },
+  { x: 307.8, y: 52.8, width: 238.1, height: 479.1 },
+  { x: 576.2, y: 52.8, width: 238.1, height: 479.1 },
+  { x: 844.7, y: 52.8, width: 238.1, height: 479.1 },
+  { x: 1113.2, y: 52.8, width: 238.1, height: 479.1 },
+  { x: 1381.7, y: 52.8, width: 238.1, height: 479.1 },
+  { x: 1650.2, y: 52.8, width: 238.1, height: 479.1 },
+  { x: 39.3, y: 573.6, width: 238.1, height: 479.1 },
+  { x: 307.8, y: 573.6, width: 238.1, height: 479.1 },
+  { x: 576.2, y: 573.6, width: 238.1, height: 479.1 },
+  { x: 844.7, y: 573.6, width: 238.1, height: 479.1 },
+  { x: 1113.2, y: 573.6, width: 238.1, height: 479.1 },
+  { x: 1381.7, y: 573.6, width: 238.1, height: 479.1 },
+  { x: 1650.2, y: 573.6, width: 238.1, height: 479.1 },
+];
 
-// Ajouter une ligne au tableau
-document.getElementById("addRow").addEventListener("click", addRow);
-
-function addRow() {
-  const tableBody = document.getElementById("tableBody");
-  const row = document.createElement("tr");
-  row.innerHTML = `
-        <td>
-            <select class="shape-select">
-                <option value="rectangle">Rectangle</option>
-                <option value="circle">Cercle</option>
-                <option value="ellipse">Ellipse</option>
-                <option value="line">Ligne</option>
-            </select>
-        </td>
-        <td><input type="number" class="x-input" value="10" min="0" step="0.1"></td>
-        <td><input type="number" class="y-input" value="10" min="0" step="0.1"></td>
-        <td><input type="number" class="width-input" value="50" min="0" step="0.1"></td>
-        <td><input type="number" class="height-input" value="50" min="0" step="0.1"></td>
-        <td><input type="number" class="radius-input" value="5" min="0" step="0.1"></td>
-        <td>
-            <button class="btn btn-danger delete-row">🗑️ Supprimer</button>
-        </td>
-    `;
-
-  tableBody.appendChild(row);
-  rowCounter++;
-
-  // Ajouter l'événement de suppression
-  row.querySelector(".delete-row").addEventListener("click", function () {
-    row.remove();
-    updatePreview();
-  });
-
-  // Ajouter les événements de mise à jour
-  const inputs = row.querySelectorAll("input, select");
-  inputs.forEach((input) => {
-    input.addEventListener("input", updatePreview);
-  });
-
-  updatePreview();
+function SlotRow({
+  slotIndex,
+  selectedPhone,
+  availablePhones,
+  onPhoneSelect,
+  onClear,
+}) {
+  return (
+    <tr>
+      <td>{slotIndex + 1}</td>
+      <td>
+        <select
+          className="phone-select"
+          value={selectedPhone || ""}
+          onChange={(e) => onPhoneSelect(e.target.value)}
+        >
+          <option value="">-- Sélectionner un smartphone --</option>
+          {availablePhones.map((phone) => (
+            <option key={phone.path} value={phone.path}>
+              {phone.name}
+            </option>
+          ))}
+        </select>
+      </td>
+      <td>
+        <button
+          className="btn btn-danger"
+          onClick={onClear}
+          disabled={!selectedPhone}
+        >
+          🗑️ Vider
+        </button>
+      </td>
+    </tr>
+  );
 }
 
-// Générer le SVG
-function generateSVG() {
-  const rows = document.querySelectorAll("#tableBody tr");
-  let shapes = "";
+// Composant principal
+function App() {
+  const [slots, setSlots] = useState(Array(14).fill(null));
+  const [availablePhones, setAvailablePhones] = useState([]);
+  const [templateSvg, setTemplateSvg] = useState("");
+  const [svgPreview, setSvgPreview] = useState("");
 
-  rows.forEach((row) => {
-    const shape = row.querySelector(".shape-select").value;
-    const x = parseFloat(row.querySelector(".x-input").value) || 0;
-    const y = parseFloat(row.querySelector(".y-input").value) || 0;
-    const width = parseFloat(row.querySelector(".width-input").value) || 0;
-    const height = parseFloat(row.querySelector(".height-input").value) || 0;
-    const radius = parseFloat(row.querySelector(".radius-input").value) || 0;
+  // Charger les smartphones disponibles
+  useEffect(() => {
+    const loadPhones = async () => {
+      const phones = [];
+      const assetsPath = path.join(__dirname, "assets");
+      const brands = ["iphone", "samsung", "google"];
 
-    switch (shape) {
-      case "rectangle":
-        shapes += `<rect x="${x}" y="${y}" width="${width}" height="${height}" fill="none" stroke="black" stroke-width="0.1"/>\n    `;
-        break;
-      case "circle":
-        shapes += `<circle cx="${x + width / 2}" cy="${y + height / 2}" r="${
-          width / 2
-        }" fill="none" stroke="black" stroke-width="0.1"/>\n    `;
-        break;
-      case "ellipse":
-        shapes += `<ellipse cx="${x + width / 2}" cy="${y + height / 2}" rx="${
-          width / 2
-        }" ry="${
-          height / 2
-        }" fill="none" stroke="black" stroke-width="0.1"/>\n    `;
-        break;
-      case "line":
-        shapes += `<line x1="${x}" y1="${y}" x2="${x + width}" y2="${
-          y + height
-        }" stroke="black" stroke-width="0.1"/>\n    `;
-        break;
+      for (const brand of brands) {
+        const brandPath = path.join(assetsPath, brand);
+        try {
+          const files = fs.readdirSync(brandPath);
+          files.forEach((file) => {
+            if (file.endsWith(".svg")) {
+              phones.push({
+                name: `${
+                  brand.charAt(0).toUpperCase() + brand.slice(1)
+                } ${file.replace(".svg", "")}`,
+                path: path.join(assetsPath, brand, file),
+                brand: brand,
+              });
+            }
+          });
+        } catch (err) {
+          console.error(`Erreur lors du chargement de ${brand}:`, err);
+        }
+      }
+      setAvailablePhones(phones);
+    };
+
+    loadPhones();
+
+    // Charger le template
+    const templatePath = path.join(__dirname, "assets", "template.svg");
+    try {
+      const template = fs.readFileSync(templatePath, "utf-8");
+      setTemplateSvg(template);
+    } catch (err) {
+      console.error("Erreur lors du chargement du template:", err);
     }
-  });
+  }, []);
 
-  const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="600mm" height="400mm" viewBox="0 0 600 400">
-    ${shapes}
-</svg>`;
+  // Générer le SVG final
+  const generateSVG = () => {
+    if (!templateSvg) return "";
 
-  return svgContent;
+    let phonesContent = "";
+
+    slots.forEach((phonePath, index) => {
+      if (phonePath) {
+        try {
+          const phoneSvg = fs.readFileSync(phonePath, "utf-8");
+          const slot = SLOTS[index];
+
+          const svgContentMatch = phoneSvg.match(/<svg[^>]*>([\s\S]*)<\/svg>/i);
+          const phoneViewBoxMatch = phoneSvg.match(
+            /<svg[^>]*viewBox="([^"]+)"[^>]*>/i
+          );
+
+          if (svgContentMatch && phoneViewBoxMatch) {
+            const content = svgContentMatch[1];
+
+            const phoneViewBox = phoneViewBoxMatch[1].split(" ").map(Number);
+            const phoneViewBoxWidth = phoneViewBox[2];
+            const phoneViewBoxHeight = phoneViewBox[3];
+
+            // Centrer le smartphone dans l'emplacement
+            const translateX = slot.x + slot.width / 2 - phoneViewBoxWidth / 2;
+            const translateY =
+              slot.y + slot.height / 2 - phoneViewBoxHeight / 2;
+
+            phonesContent += `
+    <g transform="translate(${translateX}, ${translateY})">
+      ${content}
+    </g>`;
+          }
+        } catch (err) {
+          console.error(
+            `Erreur lors du chargement du smartphone ${index}:`,
+            err
+          );
+        }
+      }
+    });
+
+    // Combiner le template avec les smartphones
+    const finalSvg = templateSvg.replace("</svg>", `${phonesContent}\n</svg>`);
+
+    return finalSvg;
+  };
+
+  // Mettre à jour la prévisualisation
+  useEffect(() => {
+    const svgContent = generateSVG();
+    setSvgPreview(svgContent);
+    console.log("SVG Preview Updated");
+  }, [slots, templateSvg]);
+
+  // Sélectionner un smartphone pour un emplacement
+  const selectPhone = (slotIndex, phonePath) => {
+    const newSlots = [...slots];
+    newSlots[slotIndex] = phonePath || null;
+    setSlots(newSlots);
+  };
+
+  // Vider un emplacement
+  const clearSlot = (slotIndex) => {
+    const newSlots = [...slots];
+    newSlots[slotIndex] = null;
+    setSlots(newSlots);
+  };
+
+  // Vider tous les emplacements
+  const clearAllSlots = () => {
+    setSlots(Array(14).fill(null));
+  };
+
+  // Exporter le SVG
+  const exportSVG = async () => {
+    const result = await ipcRenderer.invoke("export-svg", svgPreview);
+
+    if (result.success) {
+      alert(`Fichier SVG exporté avec succès !\n${result.path}`);
+    } else if (!result.cancelled) {
+      alert(`Erreur lors de l'export : ${result.error}`);
+    }
+  };
+
+  return (
+    <div className="container">
+      <header>
+        <h1>🔷 CEB Trotec Export</h1>
+      </header>
+
+      <div className="controls">
+        <button className="btn btn-danger" onClick={clearAllSlots}>
+          🗑️ Vider tous les emplacements
+        </button>
+        <button className="btn btn-success" onClick={exportSVG}>
+          💾 Exporter SVG
+        </button>
+      </div>
+
+      <div className="table-container">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>Emplacement</th>
+              <th>Smartphone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {slots.map((selectedPhone, index) => (
+              <SlotRow
+                key={index}
+                slotIndex={index}
+                selectedPhone={selectedPhone}
+                availablePhones={availablePhones}
+                onPhoneSelect={(phonePath) => selectPhone(index, phonePath)}
+                onClear={() => clearSlot(index)}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="preview-section">
+        <h2>Prévisualisation</h2>
+        <div className="svg-preview">
+          {svgPreview ? (
+            <div dangerouslySetInnerHTML={{ __html: svgPreview }} />
+          ) : (
+            <p className="empty-state">Chargement du template...</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-// Prévisualiser le SVG
-function updatePreview() {
-  const svgContent = generateSVG();
-  const previewDiv = document.getElementById("svgPreview");
-
-  if (document.querySelectorAll("#tableBody tr").length === 0) {
-    previewDiv.innerHTML =
-      '<p class="empty-state">Ajoutez des formes pour voir la prévisualisation</p>';
-  } else {
-    previewDiv.innerHTML = svgContent;
-  }
-}
-
-// Prévisualiser manuellement
-document.getElementById("previewSvg").addEventListener("click", updatePreview);
-
-// Exporter le SVG
-document.getElementById("exportSvg").addEventListener("click", async () => {
-  const svgContent = generateSVG();
-
-  if (document.querySelectorAll("#tableBody tr").length === 0) {
-    alert("Veuillez ajouter au moins une forme avant d'exporter.");
-    return;
-  }
-
-  const result = await ipcRenderer.invoke("export-svg", svgContent);
-
-  if (result.success) {
-    alert(`Fichier SVG exporté avec succès !\n${result.path}`);
-  } else if (!result.cancelled) {
-    alert(`Erreur lors de l'export : ${result.error}`);
-  }
-});
-
-// Ajouter une ligne initiale
-addRow();
-updatePreview();
+// Rendu de l'application
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);

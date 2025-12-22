@@ -32,11 +32,10 @@ app.on("activate", () => {
   }
 });
 
-// Handle SVG export
 ipcMain.handle("export-svg", async (event, svgContent) => {
   const { filePath } = await dialog.showSaveDialog(mainWindow, {
     title: "Exporter le fichier SVG",
-    defaultPath: "design-laser.svg",
+    defaultPath: "trotec-export.svg",
     filters: [{ name: "Fichiers SVG", extensions: ["svg"] }],
   });
 

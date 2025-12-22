@@ -139,14 +139,10 @@ select:focus {
 }
 
 .svg-preview {
-  min-height: 400px;
   border: 2px dashed #cbd5e0;
   border-radius: 8px;
   padding: 20px;
   background: #f7fafc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .svg-preview svg {
