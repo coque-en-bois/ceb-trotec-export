@@ -1,0 +1,20 @@
+{
+  "name": "ceb-trotec-export",
+  "version": "1.0.0",
+  "description": "Application Electron pour générer des fichiers SVG pour découpe laser",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "svg",
+    "laser-cutting"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}
