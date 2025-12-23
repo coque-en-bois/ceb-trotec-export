@@ -2,7 +2,7 @@
   "name": "ceb-trotec-export",
   "productName": "ceb-trotec-export",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Création de fichiers de production pour Trotec",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -26,6 +26,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
     "@electron-forge/plugin-fuses": "^7.10.2",
     "@electron-forge/plugin-vite": "^7.10.2",
+    "@electron-forge/publisher-github": "^7.10.2",
     "@electron/fuses": "^1.8.0",
     "@types/electron-squirrel-startup": "^1.0.2",
     "@types/react": "^19.2.7",
@@ -50,6 +51,17 @@
       "makers": [
         {
           "name": "@electron-forge/maker-zip"
+        }
+      ],
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "coque-en-bois",
+              "name": "ceb-trotec-export"
+            }
+          }
         }
       ],
       "plugins": [
