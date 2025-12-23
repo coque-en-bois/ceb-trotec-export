@@ -1,24 +1,74 @@
 {
   "name": "ceb-trotec-export",
+  "productName": "ceb-trotec-export",
   "version": "1.0.0",
-  "description": "Application Electron pour générer des fichiers SVG pour découpe laser",
-  "main": "main.js",
+  "description": "My Electron application description",
+  "main": ".vite/build/main.js",
   "scripts": {
-    "start": "electron .",
-    "dev": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": [
-    "electron",
-    "svg",
-    "laser-cutting"
-  ],
-  "author": "",
+  "keywords": [],
+  "author": {
+    "name": "Guillaume Fay",
+    "email": "guillaume_fay@hotmail.com"
+  },
   "license": "MIT",
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
   "devDependencies": {
-    "electron": "^28.0.0"
+    "@electron-forge/cli": "^7.10.2",
+    "@electron-forge/maker-deb": "^7.10.2",
+    "@electron-forge/maker-rpm": "^7.10.2",
+    "@electron-forge/maker-squirrel": "^7.10.2",
+    "@electron-forge/maker-zip": "^7.10.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
+    "@electron-forge/plugin-fuses": "^7.10.2",
+    "@electron-forge/plugin-vite": "^7.10.2",
+    "@electron/fuses": "^1.8.0",
+    "@types/electron-squirrel-startup": "^1.0.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "electron": "39.2.7",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.32.0",
+    "typescript": "~4.5.4",
+    "vite": "^5.4.21"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "config": {
+    "forge": {
+      "plugins": [
+        {
+          "name": "@electron-forge/plugin-vite",
+          "config": {
+            "build": [
+              {
+                "entry": "src/main.ts",
+                "config": "vite.main.config.ts"
+              },
+              {
+                "entry": "src/preload.ts",
+                "config": "vite.preload.config.ts"
+              }
+            ],
+            "renderer": [
+              {
+                "name": "main_window",
+                "config": "vite.renderer.config.ts"
+              }
+            ]
+          }
+        }
+      ]
+    }
   }
 }
