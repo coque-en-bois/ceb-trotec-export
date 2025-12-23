@@ -1,100 +1,103 @@
 import { useEffect, useState } from "react";
-import { SlotRow } from "./SlotRow";
-import { CEBOrderCSVRow, Slot } from "../types/types";
 import { PAGE_LENGTH } from "../lib/constants";
-
-const initSlotPage = (): Slot[] =>
-  Array(PAGE_LENGTH)
-    .fill(null)
-    .map(() => ({
-      cmd: "",
-      model: null,
-      visual: "",
-    }));
+import type { CEBOrderCSVRow, PhoneModel, Slot } from "../types/types";
+import { SlotRow } from "./SlotRow";
+import { parseCSVText } from "../lib/csv.utils";
+import {
+  generateSVG,
+  loadPhoneModels,
+  loadTemplateSVG,
+} from "../lib/svg.utils";
 
 export function App() {
+  const [slots, setSlots] = useState<Slot[]>([]);
   const [curPage, setCurPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const [slots, setSlots] = useState<Slot[]>(initSlotPage());
-  const [availablePhones, setAvailablePhones] = useState([]);
+  const [availableModels, setAvailableModels] = useState<PhoneModel[]>([]);
   const [templateSvg, setTemplateSvg] = useState("");
   const [svgPreview, setSvgPreview] = useState("");
 
+  // Init
   useEffect(() => {
     async function init() {
-      const template = await window.nodeAPI.loadTemplateSVG();
+      const template = loadTemplateSVG();
       setTemplateSvg(template);
 
-      const phones = await window.nodeAPI.loadPhoneModels();
-      setAvailablePhones(phones);
+      const phones = loadPhoneModels();
+      setAvailableModels(phones);
     }
 
     init();
   }, []);
 
+  // Update preview
   useEffect(() => {
-    const svgContent = window.nodeAPI.generateSVG(templateSvg, slots, curPage);
+    const svgContent = generateSVG(templateSvg, slots, curPage);
     setSvgPreview(svgContent);
   }, [slots, templateSvg, curPage]);
 
-  const selectPhone = (slotIndex: number, phonePath: string | null) => {
-    const newSlots = [...slots];
-    newSlots[slotIndex] = {
-      ...newSlots[slotIndex],
-      model: phonePath ? phonePath : null,
-    };
-    setSlots(newSlots);
-  };
-
-  const clearSlot = (slotIndex: number) => {
-    const newSlots = [...slots];
-    newSlots[slotIndex] = null;
-    setSlots(newSlots);
-  };
-
-  const clearAllSlots = () => {
-    setSlots(initSlotPage());
-  };
+  // Update total pages
+  useEffect(() => {
+    setTotalPages(Math.max(1, Math.ceil(slots.length / PAGE_LENGTH)));
+  }, [slots]);
 
   const exportSVG = async () => {
-    const result = await window.ipcRenderer.invoke("export-svg", svgPreview);
+    for (let page = 0; page < totalPages; page++) {
+      const svgContent = generateSVG(templateSvg, slots, page);
+      const blob = new Blob([svgContent], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
 
-    if (result.success) {
-      alert(`Fichier SVG exporté avec succès !\n${result.path}`);
-    } else if (!result.cancelled) {
-      alert(`Erreur lors de l'export : ${result.error}`);
+      const link = document.createElement("a");
+      link.setAttribute("download", `CEB_Trotec_Page_${page + 1}.svg`);
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     }
   };
 
   const importCSV = async () => {
-    const { success, content } = await window.ipcRenderer.invoke("import-csv");
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".csv";
 
-    if (!success) {
-      alert(`Erreur lors de l'importation du CSV : ${content}`);
-      return;
-    }
+    fileInput.onchange = async (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        const file = target.files[0];
+        const csvText = await file.text();
+        const content = await parseCSVText(csvText);
+        handleImportedCSV(content);
+      }
+    };
+    fileInput.click();
+  };
 
+  const handleImportedCSV = (content: CEBOrderCSVRow[]) => {
     const importedSlots = content
-      .filter((row: CEBOrderCSVRow) => row.Produit.startsWith("Coque"))
+      .filter(
+        (row: CEBOrderCSVRow) =>
+          row.Produit && row.Modèle && row.Produit.startsWith("Coque")
+      )
       .map((row: CEBOrderCSVRow) => {
+        const modelName = row["Modèle"];
+        const curModel = availableModels.find(
+          (m) => m.name.toLowerCase() === modelName.toLowerCase()
+        );
+
         return {
-          cmd: row['"CMD"'],
-          model: row["Modèle"],
+          cmd: row["CMD"],
+          model: curModel || null,
           visual: row["Produit"].split(" - ")[1],
         };
       });
 
     setSlots((prevSlots) => {
-      const newSlots = [...prevSlots, importedSlots];
+      const newSlots = [...prevSlots, ...importedSlots];
 
       return newSlots;
     });
-  };
-
-  const addNewPage = () => {
-    setSlots((prevSlots) => [...prevSlots, ...initSlotPage()]);
-    setTotalPages((prevTotal) => prevTotal + 1);
-    setCurPage(totalPages);
   };
 
   return (
@@ -108,38 +111,13 @@ export function App() {
           <button className="btn btn-success" onClick={importCSV}>
             🗂️ Import CSV (CEB-Orders)
           </button>
-          <button className="btn btn-danger" onClick={clearAllSlots}>
+          <button className="btn btn-danger" onClick={() => setSlots([])}>
             🗑️ Ré-initialiser
           </button>
         </div>
         <button className="btn btn-success" onClick={exportSVG}>
-          💾 Exporter SVG
+          💾 Export SVG
         </button>
-      </div>
-
-      <div className="pagination">
-        <button
-          className="btn btn-secondary"
-          onClick={() => setCurPage(Math.max(0, curPage - 1))}
-          disabled={curPage === 0}
-        >
-          ◀️ Page Précédente
-        </button>
-        <span>
-          Page {curPage + 1} / {totalPages}
-        </span>
-        {curPage === totalPages - 1 ? (
-          <button className="btn btn-secondary" onClick={() => addNewPage()}>
-            Nouvelle page
-          </button>
-        ) : (
-          <button
-            className="btn btn-secondary"
-            onClick={() => setCurPage(Math.min(totalPages - 1, curPage + 1))}
-          >
-            ▶️ Page Suivante
-          </button>
-        )}
       </div>
 
       <div className="table-container">
@@ -154,22 +132,60 @@ export function App() {
             </tr>
           </thead>
           <tbody>
-            {slots
+            {[...slots, { cmd: "", model: null, visual: "" }]
               .slice(curPage * PAGE_LENGTH, (curPage + 1) * PAGE_LENGTH)
-              .map(({ cmd, model, visual }, index) => (
+              .map((slot, index) => (
                 <SlotRow
                   key={index}
                   slotIndex={index + curPage * PAGE_LENGTH}
-                  selectedPhone={model}
-                  commandNumber={cmd}
-                  visualName={visual}
-                  availablePhones={availablePhones}
-                  onPhoneSelect={(phonePath) => selectPhone(index, phonePath)}
-                  onClear={() => clearSlot(index)}
+                  availableModels={availableModels}
+                  onEditSlot={(newSlot: Slot | null) => {
+                    const i = index + curPage * PAGE_LENGTH;
+                    // Suppression
+                    if (!newSlot) {
+                      const newSlots = slots.filter((_, idx) => idx !== i);
+                      setSlots(newSlots);
+                    }
+                    // Modification ou ajout si modification sur le dernier slot vide
+                    else {
+                      const isLast = slots.length === i;
+                      const newSlots = [
+                        ...slots,
+                        ...(isLast
+                          ? [{ cmd: "", model: null, visual: "" }]
+                          : []),
+                      ];
+                      newSlots[i] = newSlot;
+                      setSlots(newSlots);
+                    }
+                  }}
+                  slot={slot}
+                  isLast={slots.length === index + curPage * PAGE_LENGTH}
                 />
               ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="pagination">
+        <button
+          className="btn btn-secondary"
+          onClick={() => setCurPage(Math.max(0, curPage - 1))}
+          disabled={curPage === 0}
+        >
+          ◀️ Page Précédente
+        </button>
+        <span>
+          Page {curPage + 1} / {totalPages}
+        </span>
+
+        <button
+          className="btn btn-secondary"
+          onClick={() => setCurPage(Math.min(totalPages - 1, curPage + 1))}
+          disabled={curPage === totalPages - 1}
+        >
+          ▶️ Page Suivante
+        </button>
       </div>
 
       <div className="preview-section">

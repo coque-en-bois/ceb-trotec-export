@@ -5,7 +5,7 @@
     <style>
       .trotec-case {
       fill: none;
-      stroke: #936037;
+      stroke: brown;
       stroke-miterlimit: 10;
       }
     </style>
