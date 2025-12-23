@@ -61,7 +61,8 @@
               "owner": "coque-en-bois",
               "name": "ceb-trotec-export"
             }
-          }
+          },
+          "draft": true
         }
       ],
       "plugins": [
