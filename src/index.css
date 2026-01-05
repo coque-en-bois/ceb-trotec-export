@@ -18,6 +18,10 @@ body {
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   padding: 30px;
+
+  @media print {
+    display: none;
+  }
 }
 
 header {
@@ -170,4 +174,22 @@ select:focus {
 .empty-state {
   color: #a0aec0;
   font-style: italic;
+}
+
+.print-view {
+  @media screen {
+    display: none;
+  }
+
+  background-color: white;
+}
+
+@page left {
+  size: landscape;
+  page-orientation: rotate-left;
+}
+
+.print-page {
+  page-break-after: always;
+  page: left;
 }
