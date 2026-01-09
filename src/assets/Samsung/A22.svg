@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_1" data-name="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 207.8 464.99">
+  <g id="LINE">
+    <line x1="207.55" y1="29.59" x2="207.55" y2="435.4" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-2" data-name="LINE">
+    <line x1=".25" y1="435.4" x2=".25" y2="29.59" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-3" data-name="LINE">
+    <line x1="29.61" y1=".25" x2="178.19" y2=".25" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-4" data-name="LINE">
+    <line x1="178.19" y1="464.74" x2="29.61" y2="464.74" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-5" data-name="LINE">
+    <line x1="84.06" y1="36.05" x2="84.06" y2="66.38" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-6" data-name="LINE">
+    <line x1="62.23" y1="88.21" x2="31.9" y2="88.21" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-7" data-name="LINE">
+    <line x1="10.07" y1="66.38" x2="10.07" y2="36.05" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-8" data-name="LINE">
+    <line x1="31.9" y1="14.22" x2="62.23" y2="14.22" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE">
+    <path d="M29.61,464.74c-3.51,0-7.48-.09-11.55-.94-2.03-.43-4.13-1.02-6.07-1.96s-3.69-2.29-5.19-3.84c-3.01-3.09-4.84-7.16-5.68-11.13s-.87-7.94-.87-11.47" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-2" data-name="SPLINE">
+    <path d="M178.19.25c3.51,0,7.48.09,11.55.94,2.03.43,4.13,1.02,6.07,1.96,1.94.94,3.69,2.29,5.19,3.84,3.01,3.09,4.84,7.16,5.68,11.13s.87,7.94.87,11.47" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-3" data-name="SPLINE">
+    <path d="M207.55,435.4c0,3.53-.03,7.51-.87,11.47s-2.67,8.03-5.68,11.13c-1.5,1.55-3.25,2.9-5.19,3.84s-4.04,1.53-6.07,1.96c-4.07.85-8.03.94-11.55.94" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-4" data-name="SPLINE">
+    <path d="M.25,29.59c0-3.53.03-7.51.87-11.47S3.79,10.09,6.8,6.99c1.5-1.55,3.25-2.9,5.19-3.84s4.04-1.53,6.07-1.96c4.07-.85,8.03-.94,11.55-.94" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-5" data-name="SPLINE">
+    <path d="M84.06,66.38c0,6.41-1.74,12.16-5.71,16.12s-9.71,5.71-16.12,5.71" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-6" data-name="SPLINE">
+    <path d="M62.23,14.22c6.41,0,12.16,1.74,16.12,5.71s5.71,9.71,5.71,16.12" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-7" data-name="SPLINE">
+    <path d="M31.9,88.21c-6.41,0-12.16-1.74-16.12-5.71s-5.71-9.71-5.71-16.12" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-8" data-name="SPLINE">
+    <path d="M10.07,36.05c0-6.41,1.74-12.16,5.71-16.12s9.71-5.71,16.12-5.71" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+</svg>

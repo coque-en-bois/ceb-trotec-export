@@ -93,6 +93,7 @@ export function App() {
       )
       .map((row: CEBOrderCSVRow) => {
         const modelName = row["Modèle"];
+        console.log("Importing model:", modelName);
         const curModel = availableModels.find(
           (m) => m.name.toLowerCase() === modelName.toLowerCase()
         );

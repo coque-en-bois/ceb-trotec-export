@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_0" data-name="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 179.32 333.57">
+  <path d="M3.51.25C1.71.25.25,1.71.25,3.51" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="175.81" y1=".25" x2="3.51" y2=".25" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1=".25" y1="3.51" x2=".25" y2="330.08" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M.25,330.08c0,1.79,1.45,3.24,3.24,3.24" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="3.49" y1="333.32" x2="175.84" y2="333.32" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M175.84,333.32c1.79,0,3.24-1.45,3.24-3.24" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="179.07" y1="330.08" x2="179.07" y2="3.51" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M179.07,3.51c0-1.8-1.46-3.26-3.26-3.26" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+</svg>

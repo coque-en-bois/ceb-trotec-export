@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_0" data-name="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 204.88 444.97">
+  <g id="LWPOLYLINE">
+    <path d="M20.16,444.72s0,0,0,0c-11,0-19.91-8.92-19.91-19.91V151.34c0-1.4.59-2.74,1.63-3.69,2.04-1.85,5.19-1.71,7.05.33" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LWPOLYLINE-2" data-name="LWPOLYLINE">
+    <path d="M8.93,147.98c11.48,12.61,31,13.52,43.61,2.04,6.43-5.85,10.09-14.14,10.09-22.83v-46.07c0-2.75,2.23-4.99,4.99-4.99h7.12c11.34,0,20.52-9.19,20.52-20.52s-9.19-20.52-20.52-20.52h-7.16c-2.67,0-4.86-2.1-4.98-4.76-.38-8.19-4-15.89-10.06-21.41" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LWPOLYLINE-3" data-name="LWPOLYLINE">
+    <path d="M52.54,8.93c-1.04-.95-1.63-2.28-1.63-3.69,0-2.75,2.23-4.99,4.99-4.99h128.82s0,0,0,0c11,0,19.91,8.92,19.91,19.91v404.64s0,0,0,0c0,11-8.92,19.91-19.91,19.91H20.16" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+</svg>

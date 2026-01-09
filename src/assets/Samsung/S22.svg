@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_0" data-name="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186.61 400.63">
+  <g id="LINE">
+    <line x1="167.86" y1=".25" x2="66.95" y2=".25" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE">
+    <path d="M66.95.25c-.34,0-.69.07-1,.21-.53.23-.98.65-1.25,1.16-.19.36-.28.76-.28,1.17" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-2" data-name="LINE">
+    <line x1="64.41" y1="2.79" x2="64.41" y2="6.99" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-2" data-name="SPLINE">
+    <path d="M64.41,6.99c0,.34.07.69.21,1,.23.53.65.98,1.16,1.25.36.19.76.28,1.17.28" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-3" data-name="LINE">
+    <line x1="66.95" y1="9.53" x2="69.21" y2="9.53" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="ARC">
+    <path d="M69.21,46.41c10.18,0,18.44-8.26,18.44-18.44s-8.26-18.44-18.44-18.44" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-4" data-name="LINE">
+    <line x1="69.21" y1="46.41" x2="66.95" y2="46.41" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-3" data-name="SPLINE">
+    <path d="M66.95,46.41c-.34,0-.69.07-1,.21-.53.23-.98.65-1.25,1.16-.19.36-.28.76-.28,1.17" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-5" data-name="LINE">
+    <line x1="64.41" y1="48.95" x2="64.41" y2="114.42" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="ARC-2" data-name="ARC">
+    <path d="M33.78,145.05c16.92,0,30.63-13.71,30.63-30.63" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-6" data-name="LINE">
+    <line x1="33.78" y1="145.05" x2="2.79" y2="145.05" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="SPLINE-4" data-name="SPLINE">
+    <path d="M2.79,145.05c-.34,0-.69.07-1,.21-.53.23-.98.65-1.25,1.16-.19.36-.28.76-.28,1.17" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-7" data-name="LINE">
+    <line x1=".25" y1="147.59" x2=".25" y2="381.87" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="ARC-3" data-name="ARC">
+    <path d="M.25,381.87c0,10.22,8.28,18.5,18.5,18.5" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-8" data-name="LINE">
+    <line x1="18.75" y1="400.38" x2="167.86" y2="400.38" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="ARC-4" data-name="ARC">
+    <path d="M167.86,400.38c10.22,0,18.5-8.28,18.5-18.5" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LINE-9" data-name="LINE">
+    <line x1="186.36" y1="381.87" x2="186.36" y2="18.75" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="ARC-5" data-name="ARC">
+    <path d="M186.36,18.75c0-10.22-8.28-18.5-18.5-18.5" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+</svg>

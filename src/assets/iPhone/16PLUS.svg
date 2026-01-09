@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_0" data-name="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.55 449.22">
+  <path d="M70.85,28.75c-1.37-7.33-4.98-14.05-10.34-19.24" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M64.25.25c-2.97,0-5.39,2.41-5.39,5.39,0,1.46.59,2.85,1.64,3.87" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="182.12" y1=".25" x2="64.25" y2=".25" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M213.3,31.43c0-17.22-13.96-31.18-31.18-31.18" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="213.3" y1="417.79" x2="213.3" y2="31.43" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M182.12,448.97c17.22,0,31.18-13.96,31.18-31.18" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="31.43" y1="448.97" x2="182.12" y2="448.97" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M.25,417.79c0,17.22,13.96,31.18,31.18,31.18" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1=".25" y1="117.77" x2=".25" y2="417.79" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M11.48,112.6c-2.85-2.44-7.15-2.11-9.59.74-1.06,1.23-1.64,2.8-1.64,4.43" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M11.48,112.6c6.52,5.59,14.83,8.66,23.42,8.66" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="35.46" y1="121.26" x2="34.9" y2="121.26" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M35.46,121.26c17.33,0,32.2-12.35,35.39-29.38" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M80.39,84.25c-4.63-.17-8.69,3.07-9.54,7.63" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M80.39,84.25c13.22.49,24.33-9.84,24.81-23.06.49-13.22-9.84-24.33-23.06-24.81-.59-.02-1.17-.02-1.76,0" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M70.85,28.75c.85,4.55,4.91,7.8,9.54,7.63" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+</svg>

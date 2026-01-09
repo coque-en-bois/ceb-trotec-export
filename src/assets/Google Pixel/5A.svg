@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_0" data-name="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186.3 421.57">
+  <path d="M8.79,79.9c-2.41-1.74-5.78-1.19-7.52,1.22-.66.92-1.02,2.02-1.02,3.15" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M8.79,79.9c3.77,2.71,8.29,4.17,12.93,4.17" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="61.97" y1="84.08" x2="21.72" y2="84.08" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M61.97,84.08c12.21,0,22.11-9.9,22.11-22.11" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="84.08" y1="21.72" x2="84.08" y2="61.97" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M84.08,21.72c0-4.64-1.46-9.17-4.17-12.93" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M84.27.25c-2.97,0-5.39,2.41-5.39,5.39,0,1.13.36,2.23,1.02,3.15" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="170.82" y1=".25" x2="84.27" y2=".25" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M186.05,15.48c0-8.41-6.82-15.23-15.23-15.23" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="186.05" y1="406.09" x2="186.05" y2="15.48" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M170.82,421.32c8.41,0,15.23-6.82,15.23-15.23" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1="15.48" y1="421.32" x2="170.82" y2="421.32" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <path d="M.25,406.09c0,8.41,6.82,15.23,15.23,15.23" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <line x1=".25" y1="84.27" x2=".25" y2="406.09" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  <circle cx="93.14" cy="108.74" r="26.5" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+</svg>

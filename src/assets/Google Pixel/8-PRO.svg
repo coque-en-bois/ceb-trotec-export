@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_0" data-name="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 204.51 448.43">
+  <g id="LWPOLYLINE">
+    <path d="M185.24,448.18c10.51,0,19.02-8.52,19.02-19.02V108.85c0-.7-.57-1.28-1.28-1.28H1.53c-.7,0-1.28.57-1.28,1.28v320.31c0,10.51,8.52,19.02,19.02,19.02h165.97Z" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+  <g id="LWPOLYLINE-2" data-name="LWPOLYLINE">
+    <path d="M204.26,31.18v-11.91c0-10.51-8.52-19.02-19.02-19.02H19.27c-10.51,0-19.02,8.52-19.02,19.02v11.91c0,.7.57,1.28,1.28,1.28h201.46c.7,0,1.28-.57,1.28-1.28Z" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+  </g>
+</svg>
