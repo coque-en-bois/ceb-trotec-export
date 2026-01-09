@@ -8,6 +8,14 @@ interface SlotRowProps {
   isLast?: boolean;
 }
 
+const insideOptions = [
+  "Intérieur standard",
+  "Intérieur bois",
+  "Intérieur carbone",
+];
+
+const typeOptions = ["Assemblage", "Merisier", "Noyer"];
+
 export function SlotRow({
   slotIndex,
   slot,
@@ -15,7 +23,7 @@ export function SlotRow({
   onEditSlot,
   isLast,
 }: SlotRowProps) {
-  const { cmd, model, visual } = slot;
+  const { cmd, model, visual, type, inside } = slot;
 
   return (
     <tr>
@@ -41,7 +49,7 @@ export function SlotRow({
             });
           }}
         >
-          <option value="">-- Sélectionner un modèle --</option>
+          <option value="">-- Sélectionner --</option>
           {availableModels.map((model) => (
             <option key={model.name} value={model.name}>
               {model.name}
@@ -55,6 +63,44 @@ export function SlotRow({
           value={visual}
           onChange={(e) => onEditSlot({ ...slot, visual: e.target.value })}
         />
+      </td>
+      <td>
+        <select
+          className="phone-select"
+          value={type}
+          onChange={(e) => {
+            onEditSlot({
+              ...slot,
+              type: e.target.value,
+            });
+          }}
+        >
+          <option value="">-- Sélectionner --</option>
+          {typeOptions.map((typeOption) => (
+            <option key={typeOption} value={typeOption}>
+              {typeOption}
+            </option>
+          ))}
+        </select>
+      </td>
+      <td>
+        <select
+          className="phone-select"
+          value={inside}
+          onChange={(e) => {
+            onEditSlot({
+              ...slot,
+              inside: e.target.value,
+            });
+          }}
+        >
+          <option value="">-- Sélectionner --</option>
+          {insideOptions.map((insideOption) => (
+            <option key={insideOption} value={insideOption}>
+              {insideOption}
+            </option>
+          ))}
+        </select>
       </td>
       <td>
         {!isLast && (

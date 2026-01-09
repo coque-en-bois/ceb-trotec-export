@@ -2,6 +2,29 @@ import { PAGE_LENGTH, SLOTS } from "./constants";
 import type { PhoneModel, Slot } from "../types/types";
 import template from "../assets/template.svg";
 
+// Gravures
+
+import abstract from "../assets/gravures/ABSTRACT.svg";
+import alohaSummer from "../assets/gravures/ALOHA_SUMMER.svg";
+import appolo from "../assets/gravures/APPOLO.svg";
+import arbreDeVie from "../assets/gravures/ARBRE_DE_VIE.svg";
+import arbre from "../assets/gravures/ARBRE.svg";
+import aztec from "../assets/gravures/AZTEC.svg";
+import bivouac from "../assets/gravures/BIVOUAC.svg";
+import campsite from "../assets/gravures/CAMPSITE.svg";
+import cerf from "../assets/gravures/CERF.svg";
+import chillout from "../assets/gravures/CHILLOUT.svg";
+import enAltitude from "../assets/gravures/EN_ALTITUDE.svg";
+import exploratrice from "../assets/gravures/EXPLORATRICE.svg";
+import madeByNature from "../assets/gravures/MADE_BY_NATURE.svg";
+import mandalaSanskrit from "../assets/gravures/MANDALA_SANSKRIT.svg";
+import petitCoinDeParadis from "../assets/gravures/PETIT_COIN_DE_PARADIS.svg";
+import roseDesVents from "../assets/gravures/ROSE_DES_VENTS.svg";
+import sinjak from "../assets/gravures/SINJAK.svg";
+import surfTime from "../assets/gravures/SURF_TIME.svg";
+import wavyStyle from "../assets/gravures/WAVY_STYLE.svg";
+import winterHolidays from "../assets/gravures/WINTER_HOLIDAYS.svg";
+
 // Google Pixel imports
 import pixel4 from "../assets/Google Pixel/4.svg";
 import pixel4a from "../assets/Google Pixel/4A.svg";
@@ -581,6 +604,74 @@ export function loadPhoneModels(): PhoneModel[] {
   return [...iPhoneModels, ...samsungModels, ...googlePixelModels];
 }
 
+export function getGravure(
+  name: string
+): { svgString: string; position: "full" | "centered" | "default" } | null {
+  const gravures: Record<
+    string,
+    { svgString: string; position: "full" | "centered" | "default" }
+  > = {
+    ["L'Abstract"]: { svgString: svgURLToString(abstract), position: "full" },
+    ["Aloha Summer"]: {
+      svgString: svgURLToString(alohaSummer),
+      position: "default",
+    },
+    ["Appolo"]: { svgString: svgURLToString(appolo), position: "full" },
+    ["L'Arbre de Vie"]: {
+      svgString: svgURLToString(arbreDeVie),
+      position: "centered",
+    },
+    ["L'Arbre"]: { svgString: svgURLToString(arbre), position: "default" },
+    ["L'Aztec"]: { svgString: svgURLToString(aztec), position: "full" },
+    ["Le Bivouac"]: { svgString: svgURLToString(bivouac), position: "default" },
+    ["Le Campsite"]: {
+      svgString: svgURLToString(campsite),
+      position: "default",
+    },
+    ["Le Cerf"]: { svgString: svgURLToString(cerf), position: "default" },
+    ["La Chill Out"]: {
+      svgString: svgURLToString(chillout),
+      position: "default",
+    },
+    ["En Altitude"]: {
+      svgString: svgURLToString(enAltitude),
+      position: "default",
+    },
+    ["L'Exploratrice"]: {
+      svgString: svgURLToString(exploratrice),
+      position: "full",
+    },
+    ["Made by Nature"]: {
+      svgString: svgURLToString(madeByNature),
+      position: "default",
+    },
+    ["Le Mandala Sanskrit"]: {
+      svgString: svgURLToString(mandalaSanskrit),
+      position: "default",
+    },
+    ["Le Petit Coin de Paradis"]: {
+      svgString: svgURLToString(petitCoinDeParadis),
+      position: "default",
+    },
+    ["La Rose des Vents"]: {
+      svgString: svgURLToString(roseDesVents),
+      position: "default",
+    },
+    ["La Sinjak"]: { svgString: svgURLToString(sinjak), position: "full" },
+    ["Surf Time"]: { svgString: svgURLToString(surfTime), position: "default" },
+    ["Le Wavy Style"]: {
+      svgString: svgURLToString(wavyStyle),
+      position: "full",
+    },
+    ["Winter Holidays"]: {
+      svgString: svgURLToString(winterHolidays),
+      position: "default",
+    },
+  };
+
+  return gravures[name] || null;
+}
+
 export function generateSVG(
   templateSvg: string,
   slots: Slot[],
@@ -592,7 +683,7 @@ export function generateSVG(
 
   slots
     .slice(curPage * PAGE_LENGTH, (curPage + 1) * PAGE_LENGTH)
-    .forEach(({ model, visual, cmd }, index) => {
+    .forEach(({ model, visual, cmd, inside }, index) => {
       if (model) {
         const { name: modelName, svgString: modelSvgString } = model;
         try {
@@ -606,11 +697,38 @@ export function generateSVG(
           );
 
           if (svgContentMatch && phoneViewBoxMatch) {
-            const content = svgContentMatch[1];
+            const phoneContourPath = svgContentMatch[1];
 
             const phoneViewBox = phoneViewBoxMatch[1].split(" ").map(Number);
             const phoneViewBoxWidth = phoneViewBox[2];
             const phoneViewBoxHeight = phoneViewBox[3];
+
+            let gravurePath = "";
+            let gravurePosition = "";
+            let gravureViewBoxWidth = 0;
+            let gravureViewBoxHeight = 0;
+            const gravureObj = getGravure(visual);
+            if (gravureObj) {
+              const { svgString: gravure, position } = gravureObj;
+              gravurePosition = position;
+              const gravureContentMatch = gravure.match(
+                /<svg[^>]*>([\s\S]*)<\/svg>/i
+              );
+              if (gravureContentMatch) {
+                gravurePath = gravureContentMatch[1];
+
+                const gravureViewBoxMatch = gravure.match(
+                  /<svg[^>]*viewBox='([^']+)'[^>]*>/i
+                );
+                if (gravureViewBoxMatch) {
+                  const gravureViewBox = gravureViewBoxMatch[1]
+                    .split(" ")
+                    .map(Number);
+                  gravureViewBoxWidth = gravureViewBox[2];
+                  gravureViewBoxHeight = gravureViewBox[3];
+                }
+              }
+            }
 
             const translateX = slot.x + slot.width / 2 - phoneViewBoxWidth / 2;
             const translateY =
@@ -627,7 +745,31 @@ export function generateSVG(
       <text x="${phoneViewBoxWidth / 2}" y="${
               phoneViewBoxHeight / 2 + 60
             }" font-size="20" text-anchor="middle" fill="#936037">${visual}</text>
-      ${content}
+      <text x="${phoneViewBoxWidth / 2}" y="${
+              phoneViewBoxHeight / 2 + 90
+            }" font-size="16" text-anchor="middle" fill="#936037">${inside}</text>
+      ${phoneContourPath}
+      ${
+        gravurePath && gravurePosition === "full"
+          ? `<g transform="scale(${phoneViewBoxWidth / gravureViewBoxWidth}, ${
+              phoneViewBoxHeight / gravureViewBoxHeight
+            })">${gravurePath}</g>`
+          : gravurePath && gravurePosition === "centered"
+          ? `<g transform="translate(${
+              (phoneViewBoxWidth - gravureViewBoxWidth) / 2
+            }, ${
+              (phoneViewBoxHeight - gravureViewBoxHeight + 60) / 2
+            })">${gravurePath}</g>`
+          : gravurePath
+          ? `<g transform="scale(${
+              phoneViewBoxWidth / gravureViewBoxWidth
+            }) translate(0, ${
+              phoneViewBoxHeight -
+              gravureViewBoxHeight * (phoneViewBoxWidth / gravureViewBoxWidth)
+            })">${gravurePath}</g>`
+          : ""
+      }
+
     </g>`;
           }
         } catch (err) {

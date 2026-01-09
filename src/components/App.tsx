@@ -9,6 +9,7 @@ import {
   loadTemplateSVG,
 } from "../lib/svg.utils";
 import { PrintView } from "./PrintView";
+import { adjustSlotsForPagination } from "../lib/slot";
 
 export function App() {
   const [slots, setSlots] = useState<Slot[]>([]);
@@ -43,7 +44,7 @@ export function App() {
 
   // Update total pages
   useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(slots.length / PAGE_LENGTH));
+    const totalPages = Math.max(1, Math.ceil((slots.length + 1) / PAGE_LENGTH));
     setTotalPages(totalPages);
     const preview = [];
     for (let page = 0; page < totalPages; page++) {
@@ -87,13 +88,20 @@ export function App() {
 
   const handleImportedCSV = (content: CEBOrderCSVRow[]) => {
     const importedSlots = content
-      .filter(
-        (row: CEBOrderCSVRow) =>
-          row.Produit && row.Modèle && row.Produit.startsWith("Coque")
-      )
+      // Keep only cases with no custom engravings
+      .filter((row: CEBOrderCSVRow) => {
+        const visual = row["Produit"].split(" - ")[1];
+        return (
+          row.Produit &&
+          row.Modèle &&
+          row.Produit.startsWith("Coque") &&
+          visual !== "La Personnalisable"
+        );
+      })
       .map((row: CEBOrderCSVRow) => {
         const modelName = row["Modèle"];
-        console.log("Importing model:", modelName);
+        const type = row["Essence de bois"];
+        const inside = row["Intérieur"];
         const curModel = availableModels.find(
           (m) => m.name.toLowerCase() === modelName.toLowerCase()
         );
@@ -102,11 +110,26 @@ export function App() {
           cmd: row["CMD"],
           model: curModel || null,
           visual: row["Produit"].split(" - ")[1],
+          type,
+          inside,
         };
       });
 
     setSlots((prevSlots) => {
-      const newSlots = [...prevSlots, ...importedSlots];
+      const allAssemblage = importedSlots.filter(
+        (slot) => slot.type === "Assemblage"
+      );
+      const allMerisier = importedSlots.filter(
+        (slot) => slot.type === "Merisier"
+      );
+      const allNoyer = importedSlots.filter((slot) => slot.type === "Noyer");
+
+      const newSlots = [
+        ...adjustSlotsForPagination(prevSlots, PAGE_LENGTH),
+        ...adjustSlotsForPagination(allAssemblage, PAGE_LENGTH),
+        ...adjustSlotsForPagination(allMerisier, PAGE_LENGTH),
+        ...adjustSlotsForPagination(allNoyer, PAGE_LENGTH),
+      ];
 
       return newSlots;
     });
@@ -146,11 +169,16 @@ export function App() {
                 <th>N° Commande</th>
                 <th>Modèle</th>
                 <th>Visuel</th>
+                <th>Type</th>
+                <th>Intérieur</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {[...slots, { cmd: "", model: null, visual: "" }]
+              {[
+                ...slots,
+                { cmd: "", model: null, visual: "", type: "", inside: "" },
+              ]
                 .slice(curPage * PAGE_LENGTH, (curPage + 1) * PAGE_LENGTH)
                 .map((slot, index) => (
                   <SlotRow
@@ -170,7 +198,15 @@ export function App() {
                         const newSlots = [
                           ...slots,
                           ...(isLast
-                            ? [{ cmd: "", model: null, visual: "" }]
+                            ? [
+                                {
+                                  cmd: "",
+                                  model: null,
+                                  visual: "",
+                                  type: "",
+                                  inside: "",
+                                },
+                              ]
                             : []),
                         ];
                         newSlots[i] = newSlot;

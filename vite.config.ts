@@ -5,4 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "./",
+  build: {
+    assetsInlineLimit: 500000, // 500KB - augmente la limite pour inline les SVG plus gros
+  },
 });

@@ -8,6 +8,8 @@ export type Slot = {
   cmd: string;
   model: PhoneModel | null;
   visual: string;
+  type: string;
+  inside: string;
 };
 
 export type CEBOrderCSVRow = {
