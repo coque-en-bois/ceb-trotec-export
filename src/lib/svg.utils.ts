@@ -19,6 +19,7 @@ import exploratrice from "../assets/gravures/EXPLORATRICE.svg";
 import madeByNature from "../assets/gravures/MADE_BY_NATURE.svg";
 import mandalaSanskrit from "../assets/gravures/MANDALA_SANSKRIT.svg";
 import petitCoinDeParadis from "../assets/gravures/PETIT_COIN_DE_PARADIS.svg";
+import pommeDePin from "../assets/gravures/POMME_DE_PIN.svg";
 import roseDesVents from "../assets/gravures/ROSE_DES_VENTS.svg";
 import sinjak from "../assets/gravures/SINJAK.svg";
 import surfTime from "../assets/gravures/SURF_TIME.svg";
@@ -614,7 +615,7 @@ export function getGravure(
     ["L'Abstract"]: { svgString: svgURLToString(abstract), position: "full" },
     ["Aloha Summer"]: {
       svgString: svgURLToString(alohaSummer),
-      position: "default",
+      position: "centered",
     },
     ["Appolo"]: { svgString: svgURLToString(appolo), position: "full" },
     ["L'Arbre de Vie"]: {
@@ -623,27 +624,30 @@ export function getGravure(
     },
     ["L'Arbre"]: { svgString: svgURLToString(arbre), position: "default" },
     ["L'Aztec"]: { svgString: svgURLToString(aztec), position: "full" },
-    ["Le Bivouac"]: { svgString: svgURLToString(bivouac), position: "default" },
+    ["Le Bivouac"]: {
+      svgString: svgURLToString(bivouac),
+      position: "centered",
+    },
     ["Le Campsite"]: {
       svgString: svgURLToString(campsite),
       position: "default",
     },
-    ["Le Cerf"]: { svgString: svgURLToString(cerf), position: "default" },
+    ["Le Cerf"]: { svgString: svgURLToString(cerf), position: "centered" },
     ["La Chill Out"]: {
       svgString: svgURLToString(chillout),
-      position: "default",
+      position: "centered",
     },
     ["En Altitude"]: {
       svgString: svgURLToString(enAltitude),
-      position: "default",
+      position: "centered",
     },
     ["L'Exploratrice"]: {
       svgString: svgURLToString(exploratrice),
       position: "full",
     },
-    ["Made by Nature"]: {
+    ["Made By Nature"]: {
       svgString: svgURLToString(madeByNature),
-      position: "default",
+      position: "centered",
     },
     ["Le Mandala Sanskrit"]: {
       svgString: svgURLToString(mandalaSanskrit),
@@ -651,7 +655,11 @@ export function getGravure(
     },
     ["Le Petit Coin de Paradis"]: {
       svgString: svgURLToString(petitCoinDeParadis),
-      position: "default",
+      position: "centered",
+    },
+    ["La Pomme de Pin"]: {
+      svgString: svgURLToString(pommeDePin),
+      position: "full",
     },
     ["La Rose des Vents"]: {
       svgString: svgURLToString(roseDesVents),
@@ -703,6 +711,10 @@ export function generateSVG(
             const phoneViewBoxWidth = phoneViewBox[2];
             const phoneViewBoxHeight = phoneViewBox[3];
 
+            const translateX = slot.x + slot.width / 2 - phoneViewBoxWidth / 2;
+            const translateY =
+              slot.y + slot.height / 2 - phoneViewBoxHeight / 2;
+
             let gravurePath = "";
             let gravurePosition = "";
             let gravureViewBoxWidth = 0;
@@ -730,12 +742,9 @@ export function generateSVG(
               }
             }
 
-            const translateX = slot.x + slot.width / 2 - phoneViewBoxWidth / 2;
-            const translateY =
-              slot.y + slot.height / 2 - phoneViewBoxHeight / 2;
-
             phonesContent += `
     <g transform="translate(${translateX}, ${translateY})">
+      ${phoneContourPath}
       <text x="${phoneViewBoxWidth / 2}" y="${
               phoneViewBoxHeight / 2
             }" font-size="20" text-anchor="middle" fill="#936037">${cmd}</text>
@@ -748,17 +757,19 @@ export function generateSVG(
       <text x="${phoneViewBoxWidth / 2}" y="${
               phoneViewBoxHeight / 2 + 90
             }" font-size="16" text-anchor="middle" fill="#936037">${inside}</text>
-      ${phoneContourPath}
       ${
         gravurePath && gravurePosition === "full"
           ? `<g transform="scale(${phoneViewBoxWidth / gravureViewBoxWidth}, ${
               phoneViewBoxHeight / gravureViewBoxHeight
-            })">${gravurePath}</g>`
+            })" >${gravurePath}</g>`
           : gravurePath && gravurePosition === "centered"
           ? `<g transform="translate(${
               (phoneViewBoxWidth - gravureViewBoxWidth) / 2
             }, ${
-              (phoneViewBoxHeight - gravureViewBoxHeight + 60) / 2
+              (phoneViewBoxHeight -
+                gravureViewBoxHeight +
+                phoneViewBoxHeight / 3) /
+              2
             })">${gravurePath}</g>`
           : gravurePath
           ? `<g transform="scale(${
@@ -769,7 +780,6 @@ export function generateSVG(
             })">${gravurePath}</g>`
           : ""
       }
-
     </g>`;
           }
         } catch (err) {
