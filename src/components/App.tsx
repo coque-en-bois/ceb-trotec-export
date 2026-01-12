@@ -10,6 +10,22 @@ import {
 } from "../lib/svg.utils";
 import { PrintView } from "./PrintView";
 import { adjustSlotsForPagination } from "../lib/slot";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+const grid = 8;
+
+const getItemStyle = (_isDragging: boolean, draggableStyle: any) => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: "none",
+  margin: `0 0 ${grid}px 0`,
+
+  // styles we need to apply on draggables
+  ...draggableStyle,
+});
+
+const getListStyle = (_isDraggingOver: boolean) => ({
+  padding: grid,
+});
 
 export function App() {
   const [slots, setSlots] = useState<Slot[]>([]);
@@ -135,6 +151,24 @@ export function App() {
     });
   };
 
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedSlots = Array.from(slots);
+    const [removed] = reorderedSlots.splice(
+      result.source.index + curPage * PAGE_LENGTH,
+      1
+    );
+    reorderedSlots.splice(
+      result.destination.index + curPage * PAGE_LENGTH,
+      0,
+      removed
+    );
+    setSlots(reorderedSlots);
+  };
+
   return (
     <>
       <div className="container">
@@ -162,63 +196,108 @@ export function App() {
         </div>
 
         <div className="table-container">
-          <table id="dataTable">
-            <thead>
-              <tr>
-                <th>Emplacement</th>
-                <th>N° Commande</th>
-                <th>Modèle</th>
-                <th>Visuel</th>
-                <th>Type</th>
-                <th>Intérieur</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ...slots,
-                { cmd: "", model: null, visual: "", type: "", inside: "" },
-              ]
-                .slice(curPage * PAGE_LENGTH, (curPage + 1) * PAGE_LENGTH)
-                .map((slot, index) => (
-                  <SlotRow
-                    key={index}
-                    slotIndex={index + curPage * PAGE_LENGTH}
-                    availableModels={availableModels}
-                    onEditSlot={(newSlot: Slot | null) => {
-                      const i = index + curPage * PAGE_LENGTH;
-                      // Suppression
-                      if (!newSlot) {
-                        const newSlots = slots.filter((_, idx) => idx !== i);
-                        setSlots(newSlots);
-                      }
-                      // Modification ou ajout si modification sur le dernier slot vide
-                      else {
-                        const isLast = slots.length === i;
-                        const newSlots = [
-                          ...slots,
-                          ...(isLast
-                            ? [
-                                {
-                                  cmd: "",
-                                  model: null,
-                                  visual: "",
-                                  type: "",
-                                  inside: "",
-                                },
-                              ]
-                            : []),
-                        ];
-                        newSlots[i] = newSlot;
-                        setSlots(newSlots);
-                      }
-                    }}
-                    slot={slot}
-                    isLast={slots.length === index + curPage * PAGE_LENGTH}
-                  />
-                ))}
-            </tbody>
-          </table>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <div id="dataTable">
+              <div className="table-header">
+                <div className="table-data-header">Emplacement</div>
+                <div className="table-data-header">N° Commande</div>
+                <div className="table-data-header">Modèle</div>
+                <div className="table-data-header">Visuel</div>
+                <div className="table-data-header">Type</div>
+                <div className="table-data-header">Intérieur</div>
+                <div className="table-data-header">Actions</div>
+              </div>
+              <div className="table-body">
+                <Droppable droppableId="droppable">
+                  {(provided, snapshot) => (
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={getListStyle(snapshot.isDraggingOver)}
+                    >
+                      {[
+                        ...slots,
+                        {
+                          cmd: "",
+                          model: null,
+                          visual: "",
+                          type: "",
+                          inside: "",
+                        },
+                      ]
+                        .slice(
+                          curPage * PAGE_LENGTH,
+                          (curPage + 1) * PAGE_LENGTH
+                        )
+                        .map((slot, index) => (
+                          <Draggable
+                            key={`${slot.cmd}-${index + curPage * PAGE_LENGTH}`}
+                            draggableId={`${slot.cmd}-${
+                              index + curPage * PAGE_LENGTH
+                            }`}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style
+                                )}
+                              >
+                                <SlotRow
+                                  key={index}
+                                  slotIndex={index + curPage * PAGE_LENGTH}
+                                  availableModels={availableModels}
+                                  onEditSlot={(newSlot: Slot | null) => {
+                                    const i = index + curPage * PAGE_LENGTH;
+                                    // Suppression
+                                    if (!newSlot) {
+                                      const newSlots = slots.filter(
+                                        (_, idx) => idx !== i
+                                      );
+                                      setSlots(newSlots);
+                                    }
+                                    // Modification ou ajout si modification sur le dernier slot vide
+                                    else {
+                                      const isLast = slots.length === i;
+                                      const newSlots = [
+                                        ...slots,
+                                        ...(isLast
+                                          ? [
+                                              {
+                                                cmd: "",
+                                                model: null,
+                                                visual: "",
+                                                type: "",
+                                                inside: "",
+                                              },
+                                            ]
+                                          : []),
+                                      ];
+                                      newSlots[i] = newSlot;
+                                      setSlots(newSlots);
+                                    }
+                                  }}
+                                  slot={slot}
+                                  isLast={
+                                    slots.length ===
+                                    index + curPage * PAGE_LENGTH
+                                  }
+                                />
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </div>
+            </div>
+          </DragDropContext>
         </div>
 
         <div className="pagination">

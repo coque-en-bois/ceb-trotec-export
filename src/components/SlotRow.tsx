@@ -26,16 +26,16 @@ export function SlotRow({
   const { cmd, model, visual, type, inside } = slot;
 
   return (
-    <tr>
-      <td>{slotIndex + 1}</td>
-      <td>
+    <div className="table-line">
+      <div className="table-data-item">{slotIndex + 1}</div>
+      <div className="table-data-item">
         <input
           type="text"
           value={cmd}
           onChange={(e) => onEditSlot({ ...slot, cmd: e.target.value })}
         />
-      </td>
-      <td>
+      </div>
+      <div className="table-data-item">
         <select
           className="phone-select"
           value={model ? model.name : ""}
@@ -56,15 +56,15 @@ export function SlotRow({
             </option>
           ))}
         </select>
-      </td>
-      <td>
+      </div>
+      <div className="table-data-item">
         <input
           type="text"
           value={visual}
           onChange={(e) => onEditSlot({ ...slot, visual: e.target.value })}
         />
-      </td>
-      <td>
+      </div>
+      <div className="table-data-item">
         <select
           className="phone-select"
           value={type}
@@ -82,8 +82,8 @@ export function SlotRow({
             </option>
           ))}
         </select>
-      </td>
-      <td>
+      </div>
+      <div className="table-data-item">
         <select
           className="phone-select"
           value={inside}
@@ -101,14 +101,14 @@ export function SlotRow({
             </option>
           ))}
         </select>
-      </td>
-      <td>
+      </div>
+      <div className="table-data-item">
         {!isLast && (
           <button className="btn btn-danger" onClick={() => onEditSlot(null)}>
             Supprimer
           </button>
         )}
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }

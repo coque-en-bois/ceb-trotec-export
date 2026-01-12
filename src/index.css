@@ -100,36 +100,41 @@ header h1 {
   margin-bottom: 30px;
 }
 
-table {
+.table-header {
+  display: flex;
   width: 100%;
-  border-collapse: collapse;
-  background: white;
-}
-
-thead {
   background: #667eea;
   color: white;
 }
 
-th,
-td {
-  padding: 15px;
-  text-align: left;
+.table-line {
+  display: flex;
+  width: 100%;
   border-bottom: 1px solid #e2e8f0;
 }
 
-th {
+.table-line:hover {
+  background: #f7fafc;
+}
+
+.table-data-item {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.table-data-header {
+  flex: 1;
+  padding: 15px;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 14px;
 }
 
-tbody tr {
-  transition: background 0.2s ease;
-}
-
-tbody tr:hover {
-  background: #f7fafc;
+.table-body {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 input,
