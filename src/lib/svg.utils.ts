@@ -1,10 +1,11 @@
-import { PAGE_LENGTH, SLOTS } from "./constants";
+import { SLOTS } from "./constants";
 import type { PhoneModel, Slot } from "../types/types";
 import template from "../assets/template.svg";
 
 // Gravures
 
 import abstract from "../assets/gravures/ABSTRACT.svg";
+import logoCEB from "../assets/gravures/LOGO_CEB.svg";
 import alohaSummer from "../assets/gravures/ALOHA_SUMMER.svg";
 import appolo from "../assets/gravures/APPOLO.svg";
 import arbreDeVie from "../assets/gravures/ARBRE_DE_VIE.svg";
@@ -606,7 +607,7 @@ export function loadPhoneModels(): PhoneModel[] {
 }
 
 export function getGravure(
-  name: string
+  name: string,
 ): { svgString: string; position: "full" | "centered" | "default" } | null {
   const gravures: Record<
     string,
@@ -675,121 +676,116 @@ export function getGravure(
       svgString: svgURLToString(winterHolidays),
       position: "default",
     },
+    ["Logo CEB"]: {
+      svgString: svgURLToString(logoCEB),
+      position: "centered",
+    },
   };
 
   return gravures[name] || null;
 }
 
-export function generateSVG(
-  templateSvg: string,
-  slots: Slot[],
-  curPage: number
-) {
+export function generateSVG(templateSvg: string, slots: Slot[]) {
   if (!templateSvg) return "";
 
   let phonesContent = "";
 
-  slots
-    .slice(curPage * PAGE_LENGTH, (curPage + 1) * PAGE_LENGTH)
-    .forEach(({ model, visual, cmd, inside }, index) => {
-      if (model) {
-        const { name: modelName, svgString: modelSvgString } = model;
-        try {
-          const slot = SLOTS[index];
+  slots.forEach(({ model, visual, cmd, inside }, index) => {
+    if (model) {
+      const { name: modelName, svgString: modelSvgString } = model;
+      try {
+        const slot = SLOTS[index];
 
-          const svgContentMatch = modelSvgString.match(
-            /<svg[^>]*>([\s\S]*)<\/svg>/i
-          );
-          const phoneViewBoxMatch = modelSvgString.match(
-            /<svg[^>]*viewBox='([^']+)'[^>]*>/i
-          );
+        const svgContentMatch = modelSvgString.match(
+          /<svg[^>]*>([\s\S]*)<\/svg>/i,
+        );
+        const phoneViewBoxMatch = modelSvgString.match(
+          /<svg[^>]*viewBox='([^']+)'[^>]*>/i,
+        );
 
-          if (svgContentMatch && phoneViewBoxMatch) {
-            const phoneContourPath = svgContentMatch[1];
+        if (svgContentMatch && phoneViewBoxMatch) {
+          const phoneContourPath = svgContentMatch[1];
 
-            const phoneViewBox = phoneViewBoxMatch[1].split(" ").map(Number);
-            const phoneViewBoxWidth = phoneViewBox[2];
-            const phoneViewBoxHeight = phoneViewBox[3];
+          const phoneViewBox = phoneViewBoxMatch[1].split(" ").map(Number);
+          const phoneViewBoxWidth = phoneViewBox[2];
+          const phoneViewBoxHeight = phoneViewBox[3];
 
-            const translateX = slot.x + slot.width / 2 - phoneViewBoxWidth / 2;
-            const translateY =
-              slot.y + slot.height / 2 - phoneViewBoxHeight / 2;
+          const translateX = slot.x + slot.width / 2 - phoneViewBoxWidth / 2;
+          const translateY = slot.y + slot.height / 2 - phoneViewBoxHeight / 2;
 
-            let gravurePath = "";
-            let gravurePosition = "";
-            let gravureViewBoxWidth = 0;
-            let gravureViewBoxHeight = 0;
-            const gravureObj = getGravure(visual);
-            if (gravureObj) {
-              const { svgString: gravure, position } = gravureObj;
-              gravurePosition = position;
-              const gravureContentMatch = gravure.match(
-                /<svg[^>]*>([\s\S]*)<\/svg>/i
+          let gravurePath = "";
+          let gravurePosition = "";
+          let gravureViewBoxWidth = 0;
+          let gravureViewBoxHeight = 0;
+          const gravureObj = getGravure(visual);
+          if (gravureObj) {
+            const { svgString: gravure, position } = gravureObj;
+            gravurePosition = position;
+            const gravureContentMatch = gravure.match(
+              /<svg[^>]*>([\s\S]*)<\/svg>/i,
+            );
+            if (gravureContentMatch) {
+              gravurePath = gravureContentMatch[1];
+
+              const gravureViewBoxMatch = gravure.match(
+                /<svg[^>]*viewBox='([^']+)'[^>]*>/i,
               );
-              if (gravureContentMatch) {
-                gravurePath = gravureContentMatch[1];
-
-                const gravureViewBoxMatch = gravure.match(
-                  /<svg[^>]*viewBox='([^']+)'[^>]*>/i
-                );
-                if (gravureViewBoxMatch) {
-                  const gravureViewBox = gravureViewBoxMatch[1]
-                    .split(" ")
-                    .map(Number);
-                  gravureViewBoxWidth = gravureViewBox[2];
-                  gravureViewBoxHeight = gravureViewBox[3];
-                }
+              if (gravureViewBoxMatch) {
+                const gravureViewBox = gravureViewBoxMatch[1]
+                  .split(" ")
+                  .map(Number);
+                gravureViewBoxWidth = gravureViewBox[2];
+                gravureViewBoxHeight = gravureViewBox[3];
               }
             }
+          }
 
-            phonesContent += `
+          phonesContent += `
     <g transform="translate(${translateX}, ${translateY})">
-      ${phoneContourPath}
+      ${visual === "Logo CEB" ? `<g transform="scale(-1, 1) translate(${-phoneViewBoxWidth}, 0)">${phoneContourPath}</g>` : phoneContourPath}
       <text x="${phoneViewBoxWidth / 2}" y="${
-              phoneViewBoxHeight / 2
-            }" font-size="20" text-anchor="middle" fill="#936037">${cmd}</text>
+        phoneViewBoxHeight / 2
+      }" font-size="20" text-anchor="middle" fill="#936037">${cmd}</text>
       <text x="${phoneViewBoxWidth / 2}" y="${
-              phoneViewBoxHeight / 2 + 30
-            }" font-size="20" text-anchor="middle" fill="#936037">${modelName}</text>
+        phoneViewBoxHeight / 2 + 30
+      }" font-size="20" text-anchor="middle" fill="#936037">${modelName}</text>
       <text x="${phoneViewBoxWidth / 2}" y="${
-              phoneViewBoxHeight / 2 + 60
-            }" font-size="20" text-anchor="middle" fill="#936037">${visual}</text>
+        phoneViewBoxHeight / 2 + 60
+      }" font-size="20" text-anchor="middle" fill="#936037">${visual}</text>
       <text x="${phoneViewBoxWidth / 2}" y="${
-              phoneViewBoxHeight / 2 + 90
-            }" font-size="16" text-anchor="middle" fill="#936037">${inside}</text>
+        phoneViewBoxHeight / 2 + 90
+      }" font-size="16" text-anchor="middle" fill="#936037">${inside}</text>
       ${
         gravurePath && gravurePosition === "full"
           ? `<g transform="scale(${phoneViewBoxWidth / gravureViewBoxWidth}, ${
               phoneViewBoxHeight / gravureViewBoxHeight
             })" >${gravurePath}</g>`
           : gravurePath && gravurePosition === "centered"
-          ? `<g transform="translate(${
-              (phoneViewBoxWidth - gravureViewBoxWidth) / 2
-            }, ${
-              (phoneViewBoxHeight -
-                gravureViewBoxHeight +
-                phoneViewBoxHeight / 3) /
-              2
-            })">${gravurePath}</g>`
-          : gravurePath
-          ? `<g transform="scale(${
-              phoneViewBoxWidth / gravureViewBoxWidth
-            }) translate(0, ${
-              phoneViewBoxHeight -
-              gravureViewBoxHeight * (phoneViewBoxWidth / gravureViewBoxWidth)
-            })">${gravurePath}</g>`
-          : ""
+            ? `<g transform="translate(${
+                (phoneViewBoxWidth - gravureViewBoxWidth) / 2
+              }, ${
+                (phoneViewBoxHeight -
+                  gravureViewBoxHeight +
+                  phoneViewBoxHeight / 3) /
+                2
+              })">${gravurePath}</g>`
+            : gravurePath
+              ? `<g transform="scale(${
+                  phoneViewBoxWidth / gravureViewBoxWidth
+                }) translate(0, ${
+                  phoneViewBoxHeight -
+                  gravureViewBoxHeight *
+                    (phoneViewBoxWidth / gravureViewBoxWidth)
+                })">${gravurePath}</g>`
+              : ""
       }
     </g>`;
-          }
-        } catch (err) {
-          console.error(
-            `Erreur lors du chargement du smartphone ${index}:`,
-            err
-          );
         }
+      } catch (err) {
+        console.error(`Erreur lors du chargement du smartphone ${index}:`, err);
       }
-    });
+    }
+  });
 
   const finalSvg = templateSvg.replace("</svg>", `${phonesContent}\n</svg>`);
 

@@ -41,7 +41,7 @@ export function SlotRow({
           value={model ? model.name : ""}
           onChange={(e) => {
             const selectedModel = availableModels.find(
-              (m) => m.name === e.target.value
+              (m) => m.name === e.target.value,
             );
             onEditSlot({
               ...slot,

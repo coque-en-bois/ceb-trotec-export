@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import { useEffect, useState } from "react";
 import { PAGE_LENGTH } from "../lib/constants";
 import type { CEBOrderCSVRow, PhoneModel, Slot } from "../types/types";
@@ -9,8 +11,10 @@ import {
   loadTemplateSVG,
 } from "../lib/svg.utils";
 import { PrintView } from "./PrintView";
-import { adjustSlotsForPagination } from "../lib/slot";
+import { paginateSlotsByType } from "../lib/slot";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+const LOCAL_STORAGE_SLOTS_KEY = "saved_slots";
 
 const grid = 8;
 
@@ -23,17 +27,21 @@ const getItemStyle = (_isDragging: boolean, draggableStyle: any) => ({
   ...draggableStyle,
 });
 
-const getListStyle = (_isDraggingOver: boolean) => ({
+const getListStyle = () => ({
   padding: grid,
 });
 
 export function App() {
-  const [slots, setSlots] = useState<Slot[]>([]);
+  const [slots, setSlots] = useState<Slot[]>(
+    localStorage.getItem(LOCAL_STORAGE_SLOTS_KEY)
+      ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_SLOTS_KEY)!)
+      : [],
+  );
   const [curPage, setCurPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [availableModels, setAvailableModels] = useState<PhoneModel[]>([]);
   const [templateSvg, setTemplateSvg] = useState("");
-  const [svgPreviews, setSvgPreviews] = useState([""]);
+  const [svgPreview, setSvgPreview] = useState("");
 
   // Init
   useEffect(() => {
@@ -48,41 +56,92 @@ export function App() {
     init();
   }, []);
 
-  // Update previews
-  useEffect(() => {
-    const svgContent = generateSVG(templateSvg, slots, curPage);
-    setSvgPreviews((prevPreviews) => {
-      const newPreviews = [...prevPreviews];
-      newPreviews[curPage] = svgContent;
-      return newPreviews;
-    });
-  }, [slots, templateSvg, curPage]);
-
-  // Update total pages
   useEffect(() => {
     const totalPages = Math.max(1, Math.ceil((slots.length + 1) / PAGE_LENGTH));
     setTotalPages(totalPages);
-    const preview = [];
-    for (let page = 0; page < totalPages; page++) {
-      const svgContent = generateSVG(templateSvg, slots, page);
-      preview.push(svgContent);
-    }
-    setSvgPreviews(preview);
-  }, [slots, templateSvg]);
+    const pageSlots = slots.slice(
+      curPage * PAGE_LENGTH,
+      (curPage + 1) * PAGE_LENGTH,
+    );
+    const preview = generateSVG(templateSvg, pageSlots);
+    setSvgPreview(preview);
+    localStorage.setItem(LOCAL_STORAGE_SLOTS_KEY, JSON.stringify(slots));
+  }, [slots, templateSvg, curPage]);
 
   const exportSVG = async () => {
-    svgPreviews.forEach((svgContent, page) => {
-      const blob = new Blob([svgContent], { type: "image/svg+xml" });
-      const url = URL.createObjectURL(blob);
+    const previews = [];
+    for (let page = 0; page < totalPages; page++) {
+      const pageSlots = slots.slice(
+        page * PAGE_LENGTH,
+        (page + 1) * PAGE_LENGTH,
+      );
+      const svgContent = generateSVG(templateSvg, pageSlots);
+      const type = pageSlots[0]?.type || "";
+      previews.push({ svgContent, type });
+    }
 
-      const link = document.createElement("a");
-      link.setAttribute("download", `CEB_Trotec_Page_${page + 1}.svg`);
-      link.href = url;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    });
+    const allInterieursBois = slots.filter(
+      (slot) => slot.inside === "Intérieur bois",
+    );
+    const previewsBois = [];
+    for (
+      let page = 0;
+      page < Math.ceil(allInterieursBois.length / PAGE_LENGTH);
+      page++
+    ) {
+      const pageSlots = allInterieursBois.slice(
+        page * PAGE_LENGTH,
+        (page + 1) * PAGE_LENGTH,
+      );
+      const svgContent = generateSVG(
+        templateSvg,
+        pageSlots.map((s) => ({
+          ...s,
+          visual: "Logo CEB",
+        })),
+      );
+      previewsBois.push({ svgContent, type: "Int_Bois" });
+    }
+
+    const allInterieursCarbone = slots.filter(
+      (slot) => slot.inside === "Intérieur carbone",
+    );
+    const previewsCarbone = [];
+    for (
+      let page = 0;
+      page < Math.ceil(allInterieursCarbone.length / PAGE_LENGTH);
+      page++
+    ) {
+      const pageSlots = allInterieursCarbone.slice(
+        page * PAGE_LENGTH,
+        (page + 1) * PAGE_LENGTH,
+      );
+      const svgContent = generateSVG(
+        templateSvg,
+        pageSlots.map((s) => ({
+          ...s,
+          visual: "Logo CEB",
+        })),
+      );
+      previewsCarbone.push({ svgContent, type: "Int_Carbone" });
+    }
+
+    [...previews, ...previewsBois, ...previewsCarbone].forEach(
+      ({ svgContent, type }, page) => {
+        if (!type) return;
+
+        const blob = new Blob([svgContent], { type: "image/svg+xml" });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.setAttribute("download", `${page + 1}_CEB-Trotec_${type}.svg`);
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      },
+    );
   };
 
   const importCSV = async () => {
@@ -119,7 +178,7 @@ export function App() {
         const type = row["Essence de bois"];
         const inside = row["Intérieur"];
         const curModel = availableModels.find(
-          (m) => m.name.toLowerCase() === modelName.toLowerCase()
+          (m) => m.name.toLowerCase() === modelName.toLowerCase(),
         );
 
         return {
@@ -131,27 +190,12 @@ export function App() {
         };
       });
 
-    setSlots((prevSlots) => {
-      const allAssemblage = importedSlots.filter(
-        (slot) => slot.type === "Assemblage"
-      );
-      const allMerisier = importedSlots.filter(
-        (slot) => slot.type === "Merisier"
-      );
-      const allNoyer = importedSlots.filter((slot) => slot.type === "Noyer");
-
-      const newSlots = [
-        ...adjustSlotsForPagination(prevSlots, PAGE_LENGTH),
-        ...adjustSlotsForPagination(allAssemblage, PAGE_LENGTH),
-        ...adjustSlotsForPagination(allMerisier, PAGE_LENGTH),
-        ...adjustSlotsForPagination(allNoyer, PAGE_LENGTH),
-      ];
-
-      return newSlots;
-    });
+    setSlots((prevSlots) =>
+      paginateSlotsByType(prevSlots, importedSlots, PAGE_LENGTH),
+    );
   };
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: any) => {
     if (!result.destination) {
       return;
     }
@@ -159,14 +203,19 @@ export function App() {
     const reorderedSlots = Array.from(slots);
     const [removed] = reorderedSlots.splice(
       result.source.index + curPage * PAGE_LENGTH,
-      1
+      1,
     );
     reorderedSlots.splice(
       result.destination.index + curPage * PAGE_LENGTH,
       0,
-      removed
+      removed,
     );
     setSlots(reorderedSlots);
+  };
+
+  const reset = () => {
+    setSlots([]);
+    setCurPage(0);
   };
 
   return (
@@ -181,7 +230,7 @@ export function App() {
             <button className="btn btn-success" onClick={importCSV}>
               Import CSV (CEB-Orders)
             </button>
-            <button className="btn btn-danger" onClick={() => setSlots([])}>
+            <button className="btn btn-danger" onClick={reset}>
               Ré-initialiser
             </button>
           </div>
@@ -209,11 +258,11 @@ export function App() {
               </div>
               <div className="table-body">
                 <Droppable droppableId="droppable">
-                  {(provided, snapshot) => (
+                  {(provided) => (
                     <div
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      style={getListStyle(snapshot.isDraggingOver)}
+                      style={getListStyle()}
                     >
                       {[
                         ...slots,
@@ -227,14 +276,12 @@ export function App() {
                       ]
                         .slice(
                           curPage * PAGE_LENGTH,
-                          (curPage + 1) * PAGE_LENGTH
+                          (curPage + 1) * PAGE_LENGTH,
                         )
                         .map((slot, index) => (
                           <Draggable
-                            key={`${slot.cmd}-${index + curPage * PAGE_LENGTH}`}
-                            draggableId={`${slot.cmd}-${
-                              index + curPage * PAGE_LENGTH
-                            }`}
+                            key={`${index + curPage * PAGE_LENGTH}`}
+                            draggableId={`${index + curPage * PAGE_LENGTH}`}
                             index={index}
                           >
                             {(provided, snapshot) => (
@@ -244,7 +291,7 @@ export function App() {
                                 {...provided.dragHandleProps}
                                 style={getItemStyle(
                                   snapshot.isDragging,
-                                  provided.draggableProps.style
+                                  provided.draggableProps.style,
                                 )}
                               >
                                 <SlotRow
@@ -256,9 +303,15 @@ export function App() {
                                     // Suppression
                                     if (!newSlot) {
                                       const newSlots = slots.filter(
-                                        (_, idx) => idx !== i
+                                        (_, idx) => idx !== i,
                                       );
-                                      setSlots(newSlots);
+                                      setSlots(
+                                        paginateSlotsByType(
+                                          newSlots,
+                                          [],
+                                          PAGE_LENGTH,
+                                        ),
+                                      );
                                     }
                                     // Modification ou ajout si modification sur le dernier slot vide
                                     else {
@@ -278,7 +331,13 @@ export function App() {
                                           : []),
                                       ];
                                       newSlots[i] = newSlot;
-                                      setSlots(newSlots);
+                                      setSlots(
+                                        paginateSlotsByType(
+                                          newSlots,
+                                          [],
+                                          PAGE_LENGTH,
+                                        ),
+                                      );
                                     }
                                   }}
                                   slot={slot}
@@ -324,15 +383,15 @@ export function App() {
         <div className="preview-section">
           <h2>Prévisualisation du fichier de prod</h2>
           <div className="svg-preview">
-            {svgPreviews[curPage] ? (
-              <div dangerouslySetInnerHTML={{ __html: svgPreviews[curPage] }} />
+            {svgPreview ? (
+              <div dangerouslySetInnerHTML={{ __html: svgPreview }} />
             ) : (
               <p className="empty-state">Chargement du template...</p>
             )}
           </div>
         </div>
       </div>
-      <PrintView svgPreviews={svgPreviews} />
+      <PrintView slots={slots} />
     </>
   );
 }
