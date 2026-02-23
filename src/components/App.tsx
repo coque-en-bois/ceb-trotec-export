@@ -13,6 +13,7 @@ import {
 import { PrintView } from "./PrintView";
 import { paginateSlotsByType } from "../lib/slot";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useUndoRedo } from "../lib/useUndoRedo";
 
 const LOCAL_STORAGE_SLOTS_KEY = "saved_slots";
 
@@ -32,7 +33,15 @@ const getListStyle = () => ({
 });
 
 export function App() {
-  const [slots, setSlots] = useState<Slot[]>(
+  const {
+    state: slots,
+    set: setSlots,
+    undo,
+    redo,
+    reset: resetSlots,
+    canUndo,
+    canRedo,
+  } = useUndoRedo<Slot[]>(
     localStorage.getItem(LOCAL_STORAGE_SLOTS_KEY)
       ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_SLOTS_KEY)!)
       : [],
@@ -214,7 +223,7 @@ export function App() {
   };
 
   const reset = () => {
-    setSlots([]);
+    resetSlots([]);
     setCurPage(0);
   };
 
@@ -232,6 +241,22 @@ export function App() {
             </button>
             <button className="btn btn-danger" onClick={reset}>
               Ré-initialiser
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={undo}
+              disabled={!canUndo}
+              title="Annuler (Ctrl+Z)"
+            >
+              ↩ Annuler
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={redo}
+              disabled={!canRedo}
+              title="Rétablir (Ctrl+Shift+Z)"
+            >
+              ↪ Rétablir
             </button>
           </div>
           <div className="inner-controls">
