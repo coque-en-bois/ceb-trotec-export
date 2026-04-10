@@ -14,7 +14,7 @@ const insideOptions = [
   "Intérieur carbone",
 ];
 
-const typeOptions = ["Assemblage", "Merisier", "Noyer"];
+const typeOptions = ["Assemblage", "Merisier", "Érable"];
 
 export function SlotRow({
   slotIndex,

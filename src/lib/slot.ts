@@ -46,14 +46,14 @@ export const paginateSlotsByType = (
     .filter((slot) => slot.type === "Merisier")
     .reduce<Slot[]>(removeDuplicateSlots, []);
 
-  const allNoyer = allSlots
-    .filter((slot) => slot.type === "Noyer")
+  const allÉrable = allSlots
+    .filter((slot) => slot.type === "Érable")
     .reduce<Slot[]>(removeDuplicateSlots, []);
 
   const slots = [
     ...adjustSlotsForPagination(allAssemblage, pageLength),
     ...adjustSlotsForPagination(allMerisier, pageLength),
-    ...adjustSlotsForPagination(allNoyer, pageLength),
+    ...adjustSlotsForPagination(allÉrable, pageLength),
   ];
 
   return slots;

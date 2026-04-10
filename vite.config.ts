@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: "./",
   build: {
-    assetsInlineLimit: 500000, // 500KB - augmente la limite pour inline les SVG plus gros
+    assetsInlineLimit: 1000000, // 1Mo - augmente la limite pour inline les SVG plus gros
   },
 });

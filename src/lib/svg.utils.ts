@@ -606,79 +606,59 @@ export function loadPhoneModels(): PhoneModel[] {
   return [...iPhoneModels, ...samsungModels, ...googlePixelModels];
 }
 
-export function getGravure(
-  name: string,
-): { svgString: string; position: "full" | "centered" | "default" } | null {
-  const gravures: Record<
-    string,
-    { svgString: string; position: "full" | "centered" | "default" }
-  > = {
-    ["L'Abstract"]: { svgString: svgURLToString(abstract), position: "full" },
+export function getGravure(name: string): { svgString: string } | null {
+  const gravures: Record<string, { svgString: string }> = {
+    ["L'Abstract"]: { svgString: svgURLToString(abstract) },
     ["Aloha Summer"]: {
       svgString: svgURLToString(alohaSummer),
-      position: "centered",
     },
-    ["Appolo"]: { svgString: svgURLToString(appolo), position: "full" },
+    ["Appolo"]: { svgString: svgURLToString(appolo) },
     ["L'Arbre de Vie"]: {
       svgString: svgURLToString(arbreDeVie),
-      position: "centered",
     },
-    ["L'Arbre"]: { svgString: svgURLToString(arbre), position: "default" },
-    ["L'Aztec"]: { svgString: svgURLToString(aztec), position: "full" },
+    ["L'Arbre"]: { svgString: svgURLToString(arbre) },
+    ["L'Aztec"]: { svgString: svgURLToString(aztec) },
     ["Le Bivouac"]: {
       svgString: svgURLToString(bivouac),
-      position: "centered",
     },
     ["Le Campsite"]: {
       svgString: svgURLToString(campsite),
-      position: "default",
     },
-    ["Le Cerf"]: { svgString: svgURLToString(cerf), position: "centered" },
+    ["Le Cerf"]: { svgString: svgURLToString(cerf) },
     ["La Chill Out"]: {
       svgString: svgURLToString(chillout),
-      position: "centered",
     },
     ["En Altitude"]: {
       svgString: svgURLToString(enAltitude),
-      position: "centered",
     },
     ["L'Exploratrice"]: {
       svgString: svgURLToString(exploratrice),
-      position: "full",
     },
     ["Made By Nature"]: {
       svgString: svgURLToString(madeByNature),
-      position: "centered",
     },
     ["Le Mandala Sanskrit"]: {
       svgString: svgURLToString(mandalaSanskrit),
-      position: "default",
     },
     ["Le Petit Coin de Paradis"]: {
       svgString: svgURLToString(petitCoinDeParadis),
-      position: "centered",
     },
     ["La Pomme de Pin"]: {
       svgString: svgURLToString(pommeDePin),
-      position: "full",
     },
     ["La Rose des Vents"]: {
       svgString: svgURLToString(roseDesVents),
-      position: "default",
     },
-    ["La Sinjak"]: { svgString: svgURLToString(sinjak), position: "full" },
-    ["Surf Time"]: { svgString: svgURLToString(surfTime), position: "default" },
+    ["La Sinjak"]: { svgString: svgURLToString(sinjak) },
+    ["Surf Time"]: { svgString: svgURLToString(surfTime) },
     ["Le Wavy Style"]: {
       svgString: svgURLToString(wavyStyle),
-      position: "full",
     },
     ["Winter Holidays"]: {
       svgString: svgURLToString(winterHolidays),
-      position: "default",
     },
     ["Logo CEB"]: {
       svgString: svgURLToString(logoCEB),
-      position: "centered",
     },
   };
 
@@ -711,16 +691,20 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
           const phoneViewBoxHeight = phoneViewBox[3];
 
           const translateX = slot.x + slot.width / 2 - phoneViewBoxWidth / 2;
-          const translateY = slot.y + slot.height / 2 - phoneViewBoxHeight / 2;
+          let translateY = slot.y + slot.height / 2 - phoneViewBoxHeight / 2;
+
+          // Si la distance entre le bas du slot et le bas du téléphone est supérieure à 110
+          // on aligne le bas du téléphone à 50px du bas du slot
+          if (slot.height - phoneViewBoxHeight > 110) {
+            translateY = slot.y + slot.height - phoneViewBoxHeight - 40;
+          }
 
           let gravurePath = "";
-          let gravurePosition = "";
           let gravureViewBoxWidth = 0;
           let gravureViewBoxHeight = 0;
           const gravureObj = getGravure(visual);
           if (gravureObj) {
-            const { svgString: gravure, position } = gravureObj;
-            gravurePosition = position;
+            const { svgString: gravure } = gravureObj;
             const gravureContentMatch = gravure.match(
               /<svg[^>]*>([\s\S]*)<\/svg>/i,
             );
@@ -740,44 +724,41 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
             }
           }
 
+          const phoneContourForDisplay =
+            visual === "Logo CEB"
+              ? `<g transform="scale(-1, 1) translate(${-phoneViewBoxWidth}, 0)">${phoneContourPath}</g>`
+              : phoneContourPath;
+
           phonesContent += `
+    <defs>
+      <clipPath id="clip-phone-${index}">
+        <rect x="${translateX}" y="${translateY}" width="${phoneViewBoxWidth}" height="${phoneViewBoxHeight}"/>
+      </clipPath>
+    </defs>
     <g transform="translate(${translateX}, ${translateY})">
-      ${visual === "Logo CEB" ? `<g transform="scale(-1, 1) translate(${-phoneViewBoxWidth}, 0)">${phoneContourPath}</g>` : phoneContourPath}
-      <text x="${phoneViewBoxWidth / 2}" y="${
-        phoneViewBoxHeight / 2
-      }" font-size="20" text-anchor="middle" fill="#936037">${cmd}</text>
-      <text x="${phoneViewBoxWidth / 2}" y="${
-        phoneViewBoxHeight / 2 + 30
-      }" font-size="20" text-anchor="middle" fill="#936037">${modelName}</text>
-      <text x="${phoneViewBoxWidth / 2}" y="${
-        phoneViewBoxHeight / 2 + 60
-      }" font-size="20" text-anchor="middle" fill="#936037">${visual}</text>
-      <text x="${phoneViewBoxWidth / 2}" y="${
-        phoneViewBoxHeight / 2 + 90
-      }" font-size="16" text-anchor="middle" fill="#936037">${inside}</text>
+      ${phoneContourForDisplay}
+    </g>
+    <g clip-path="url(#clip-phone-${index})">
+      <g transform="translate(${translateX}, ${translateY})">
+        <text x="${phoneViewBoxWidth / 2}" y="${
+          phoneViewBoxHeight / 2
+        }" font-size="20" text-anchor="middle" fill="#936037">${cmd}</text>
+        <text x="${phoneViewBoxWidth / 2}" y="${
+          phoneViewBoxHeight / 2 + 30
+        }" font-size="20" text-anchor="middle" fill="#936037">${modelName}</text>
+        <text x="${phoneViewBoxWidth / 2}" y="${
+          phoneViewBoxHeight / 2 + 60
+        }" font-size="20" text-anchor="middle" fill="#936037">${visual}</text>
+        <text x="${phoneViewBoxWidth / 2}" y="${
+          phoneViewBoxHeight / 2 + 90
+        }" font-size="16" text-anchor="middle" fill="#936037">${inside}</text>
+      </g>
       ${
-        gravurePath && gravurePosition === "full"
-          ? `<g transform="scale(${phoneViewBoxWidth / gravureViewBoxWidth}, ${
-              phoneViewBoxHeight / gravureViewBoxHeight
-            })" >${gravurePath}</g>`
-          : gravurePath && gravurePosition === "centered"
-            ? `<g transform="translate(${
-                (phoneViewBoxWidth - gravureViewBoxWidth) / 2
-              }, ${
-                (phoneViewBoxHeight -
-                  gravureViewBoxHeight +
-                  phoneViewBoxHeight / 3) /
-                2
-              })">${gravurePath}</g>`
-            : gravurePath
-              ? `<g transform="scale(${
-                  phoneViewBoxWidth / gravureViewBoxWidth
-                }) translate(0, ${
-                  phoneViewBoxHeight -
-                  gravureViewBoxHeight *
-                    (phoneViewBoxWidth / gravureViewBoxWidth)
-                })">${gravurePath}</g>`
-              : ""
+        gravurePath
+          ? `<g transform="translate(${slot.x}, ${slot.y}) scale(${slot.width / gravureViewBoxWidth}, ${
+              slot.height / gravureViewBoxHeight
+            })">${gravurePath}</g>`
+          : ""
       }
     </g>`;
         }
