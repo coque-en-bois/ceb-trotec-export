@@ -755,9 +755,13 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
       </g>
       ${
         gravurePath
-          ? `<g transform="translate(${slot.x}, ${slot.y}) scale(${slot.width / gravureViewBoxWidth}, ${
-              slot.height / gravureViewBoxHeight
-            })">${gravurePath}</g>`
+          ? visual === "Logo CEB"
+            ? `<g transform="translate(${slot.x}, ${translateY + phoneViewBoxHeight - slot.height}) scale(${slot.width / gravureViewBoxWidth}, ${
+                slot.height / gravureViewBoxHeight
+              })">${gravurePath}</g>`
+            : `<g transform="translate(${slot.x}, ${slot.y}) scale(${slot.width / gravureViewBoxWidth}, ${
+                slot.height / gravureViewBoxHeight
+              })">${gravurePath}</g>`
           : ""
       }
     </g>`;
