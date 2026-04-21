@@ -735,24 +735,12 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
         <rect x="${translateX}" y="${translateY}" width="${phoneViewBoxWidth}" height="${phoneViewBoxHeight}"/>
       </clipPath>
     </defs>
+    <text transform="translate(${slot.x + 10}, ${slot.y + 20})" font-size="12" text-anchor="left" fill="#936037">${cmd} - ${modelName}</text>
+    <text transform="translate(${slot.x + 10}, ${slot.y + slot.height - 10})" font-size="12" text-anchor="left" fill="#936037">${visual} (${inside.replace("Intérieur", "Int : ")})</text>
     <g transform="translate(${translateX}, ${translateY})">
       ${phoneContourForDisplay}
     </g>
     <g clip-path="url(#clip-phone-${index})">
-      <g transform="translate(${translateX}, ${translateY})">
-        <text x="${phoneViewBoxWidth / 2}" y="${
-          phoneViewBoxHeight / 2
-        }" font-size="20" text-anchor="middle" fill="#936037">${cmd}</text>
-        <text x="${phoneViewBoxWidth / 2}" y="${
-          phoneViewBoxHeight / 2 + 30
-        }" font-size="20" text-anchor="middle" fill="#936037">${modelName}</text>
-        <text x="${phoneViewBoxWidth / 2}" y="${
-          phoneViewBoxHeight / 2 + 60
-        }" font-size="20" text-anchor="middle" fill="#936037">${visual}</text>
-        <text x="${phoneViewBoxWidth / 2}" y="${
-          phoneViewBoxHeight / 2 + 90
-        }" font-size="16" text-anchor="middle" fill="#936037">${inside}</text>
-      </g>
       ${
         gravurePath
           ? visual === "Logo CEB"
