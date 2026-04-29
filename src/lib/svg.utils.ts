@@ -532,7 +532,7 @@ export function loadPhoneModels(): PhoneModel[] {
       brand: "Google Pixel",
     },
     {
-      name: "Google Pixel 6 Pro",
+      name: "Google Pixel 6pro",
       svgString: svgURLToString(pixel6Pro),
       brand: "Google Pixel",
     },
@@ -547,7 +547,7 @@ export function loadPhoneModels(): PhoneModel[] {
       brand: "Google Pixel",
     },
     {
-      name: "Google Pixel 7 Pro",
+      name: "Google Pixel 7pro",
       svgString: svgURLToString(pixel7Pro),
       brand: "Google Pixel",
     },
@@ -562,7 +562,7 @@ export function loadPhoneModels(): PhoneModel[] {
       brand: "Google Pixel",
     },
     {
-      name: "Google Pixel 8 Pro",
+      name: "Google Pixel 8pro",
       svgString: svgURLToString(pixel8Pro),
       brand: "Google Pixel",
     },
