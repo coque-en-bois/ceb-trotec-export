@@ -115,6 +115,7 @@ export function App() {
     const allInterieursCarbone = slots.filter(
       (slot) => slot.inside === "Intérieur carbone",
     );
+
     const previewsCarbone = [];
     for (
       let page = 0;
@@ -135,22 +136,25 @@ export function App() {
       previewsCarbone.push({ svgContent, type: "Int_Carbone" });
     }
 
-    [...previews, ...previewsBois, ...previewsCarbone].forEach(
-      ({ svgContent, type }, page) => {
-        if (!type) return;
+    const allFiles = [...previews, ...previewsBois, ...previewsCarbone];
+    for (let page = 0; page < allFiles.length; page++) {
+      const { svgContent, type } = allFiles[page];
+      if (!type) continue;
 
-        const blob = new Blob([svgContent], { type: "image/svg+xml" });
-        const url = URL.createObjectURL(blob);
+      const blob = new Blob([svgContent], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
 
-        const link = document.createElement("a");
-        link.setAttribute("download", `${page + 1}_CEB-Trotec_${type}.svg`);
-        link.href = url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      },
-    );
+      const link = document.createElement("a");
+      link.setAttribute("download", `${page + 1}_CEB-Trotec_${type}.svg`);
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // Petit délai pour éviter que le navigateur ne bloque les téléchargements multiples
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    }
   };
 
   const importCSV = async () => {

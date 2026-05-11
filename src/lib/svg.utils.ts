@@ -100,9 +100,12 @@ import samsungS25FE from "../assets/Samsung/S25FE.svg";
 // Samsung S24 is the only model we keep for now
 
 // iPhone imports
+import iphoneSE2020 from "../assets/iPhone/7-8-se2020-se2022.svg";
+import iphoneSE2022 from "../assets/iPhone/7-8-se2020-se2022.svg";
+
 import iphone6 from "../assets/iPhone/6-6S.svg";
 import iphone6Plus from "../assets/iPhone/6PLUS-6SPLUS.svg";
-import iphone7 from "../assets/iPhone/7-8.svg";
+import iphone7 from "../assets/iPhone/7-8-se2020-se2022.svg";
 import iphone7Plus from "../assets/iPhone/7PLUS-8PLUS.svg";
 
 import iphoneX from "../assets/iPhone/X-XS.svg";
@@ -154,6 +157,16 @@ export function loadTemplateSVG(): string {
 
 export function loadPhoneModels(): PhoneModel[] {
   const iPhoneModels = [
+    {
+      name: "iPhone SE 2020",
+      svgString: svgURLToString(iphoneSE2020),
+      brand: "iPhone",
+    },
+    {
+      name: "iPhone SE 2022",
+      svgString: svgURLToString(iphoneSE2022),
+      brand: "iPhone",
+    },
     {
       name: "iPhone 6 / 6s",
       svgString: svgURLToString(iphone6),
