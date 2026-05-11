@@ -13,10 +13,17 @@ export function PrintView({ slots }: PrintViewProps) {
         acc.Merisier.push(slot);
       } else if (slot.type === "Érable") {
         acc.Érable.push(slot);
+      } else if (slot.type === "Noyer") {
+        acc.Noyer.push(slot);
       }
       return acc;
     },
-    { Assemblage: [] as Slot[], Merisier: [] as Slot[], Érable: [] as Slot[] },
+    {
+      Assemblage: [] as Slot[],
+      Merisier: [] as Slot[],
+      Érable: [] as Slot[],
+      Noyer: [] as Slot[],
+    },
   );
 
   return (

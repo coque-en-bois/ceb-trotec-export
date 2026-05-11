@@ -39,6 +39,8 @@ export const paginateSlotsByType = (
 ) => {
   const allSlots = [...oldSlots, ...newSlots];
 
+  const knownTypes = ["Assemblage", "Merisier", "Érable", "Noyer"];
+
   const allAssemblage = allSlots
     .filter((slot) => slot.type === "Assemblage")
     .reduce<Slot[]>(removeDuplicateSlots, []);
@@ -50,10 +52,20 @@ export const paginateSlotsByType = (
     .filter((slot) => slot.type === "Érable")
     .reduce<Slot[]>(removeDuplicateSlots, []);
 
+  const allNoyer = allSlots
+    .filter((slot) => slot.type === "Noyer")
+    .reduce<Slot[]>(removeDuplicateSlots, []);
+
+  // Slots en cours de saisie (type pas encore choisi) : on les conserve tels quels
+  // sans pagination pour ne pas perdre l'édition en cours.
+  const untyped = allSlots.filter((slot) => !knownTypes.includes(slot.type));
+
   const slots = [
     ...adjustSlotsForPagination(allAssemblage, pageLength),
     ...adjustSlotsForPagination(allMerisier, pageLength),
     ...adjustSlotsForPagination(allÉrable, pageLength),
+    ...adjustSlotsForPagination(allNoyer, pageLength),
+    ...untyped,
   ];
 
   return slots;
