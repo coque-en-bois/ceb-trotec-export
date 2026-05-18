@@ -16,3 +16,14 @@ export const SLOTS = [
 ];
 
 export const PAGE_LENGTH = SLOTS.length;
+
+// Visuels qui doivent être traités comme "Assemblage CHF" (chêne fumé)
+// lorsqu'ils sont importés avec l'essence "Assemblage".
+export const CHF_VISUALS = ["Le Loup", "Le Triangle", "L'Ancre", "La Skull"];
+
+export const inferType = (type: string, visual: string): string => {
+  if (type === "Assemblage" && CHF_VISUALS.includes(visual)) {
+    return "Assemblage CHF";
+  }
+  return type;
+};

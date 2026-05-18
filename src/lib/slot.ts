@@ -39,10 +39,19 @@ export const paginateSlotsByType = (
 ) => {
   const allSlots = [...oldSlots, ...newSlots];
 
-  const knownTypes = ["Assemblage", "Merisier", "Érable", "Noyer"];
+  const knownTypes = [
+    "Assemblage",
+    "Assemblage CHF",
+    "Merisier",
+    "Érable",
+    "Noyer",
+  ];
 
   const allAssemblage = allSlots
     .filter((slot) => slot.type === "Assemblage")
+    .reduce<Slot[]>(removeDuplicateSlots, []);
+  const allAssemblageCHF = allSlots
+    .filter((slot) => slot.type === "Assemblage CHF")
     .reduce<Slot[]>(removeDuplicateSlots, []);
   const allMerisier = allSlots
     .filter((slot) => slot.type === "Merisier")
@@ -62,6 +71,7 @@ export const paginateSlotsByType = (
 
   const slots = [
     ...adjustSlotsForPagination(allAssemblage, pageLength),
+    ...adjustSlotsForPagination(allAssemblageCHF, pageLength),
     ...adjustSlotsForPagination(allMerisier, pageLength),
     ...adjustSlotsForPagination(allÉrable, pageLength),
     ...adjustSlotsForPagination(allNoyer, pageLength),

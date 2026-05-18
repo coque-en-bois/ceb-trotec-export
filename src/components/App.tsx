@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import { useEffect, useState } from "react";
-import { PAGE_LENGTH } from "../lib/constants";
+import { PAGE_LENGTH, inferType } from "../lib/constants";
 import type { CEBOrderCSVRow, PhoneModel, Slot } from "../types/types";
 import { SlotRow } from "./SlotRow";
 import { parseCSVText } from "../lib/csv.utils";
@@ -188,8 +188,9 @@ export function App() {
       })
       .map((row: CEBOrderCSVRow) => {
         const modelName = row["Modèle"];
-        const type = row["Essence de bois"];
         const inside = row["Intérieur"];
+        const visual = row["Produit"].split(" - ")[1];
+        const type = inferType(row["Essence de bois"], visual);
         const curModel = availableModels.find(
           (m) => m.name.toLowerCase() === modelName.toLowerCase(),
         );
@@ -197,7 +198,7 @@ export function App() {
         return {
           cmd: row["CMD"],
           model: curModel || null,
-          visual: row["Produit"].split(" - ")[1],
+          visual,
           type,
           inside,
         };

@@ -1,0 +1,18 @@
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 840 1680"
+	width="840px" height="1680px">
+	<g transform="matrix(3.886011, 0, 0, 3.886011, -1346.310913, 560.152039)">
+		<path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"
+			fill="none"
+			d="M383.48,72.95l116.71,0.1c0.03,0.06,0.07,0.11,0.1,0.17l-42.25,72.96l6.4,12.33l55.56-96.99l-128.97-0.03
+		L383.48,72.95z"></path>
+		<path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"
+			fill="none"
+			d="M459.36,188.61L401.34,87.34c0.03-0.06,0.06-0.12,0.1-0.17l84.31,0.32l7.51-11.69l-111.78,0.1l64.18,111.87
+		L459.36,188.61z"></path>
+		<path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"
+			fill="none"
+			d="M522,64.57L463.74,165.7c-0.07,0-0.13,0-0.2,0.01l-42.2-72.99l-13.88-0.6l56.39,96.51l64.31-111.79L522,64.57z
+		"></path>
+	</g>
+</svg>

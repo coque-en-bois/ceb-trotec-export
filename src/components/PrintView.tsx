@@ -9,6 +9,8 @@ export function PrintView({ slots }: PrintViewProps) {
     (acc, slot) => {
       if (slot.type === "Assemblage") {
         acc.Assemblage.push(slot);
+      } else if (slot.type === "Assemblage CHF") {
+        acc["Assemblage CHF"].push(slot);
       } else if (slot.type === "Merisier") {
         acc.Merisier.push(slot);
       } else if (slot.type === "Érable") {
@@ -20,6 +22,7 @@ export function PrintView({ slots }: PrintViewProps) {
     },
     {
       Assemblage: [] as Slot[],
+      "Assemblage CHF": [] as Slot[],
       Merisier: [] as Slot[],
       Érable: [] as Slot[],
       Noyer: [] as Slot[],

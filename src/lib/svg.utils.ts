@@ -3,7 +3,6 @@ import type { PhoneModel, Slot } from "../types/types";
 import template from "../assets/template.svg";
 
 // Gravures
-
 import abstract from "../assets/gravures/ABSTRACT.svg";
 import logoCEB from "../assets/gravures/LOGO_CEB.svg";
 import alohaSummer from "../assets/gravures/ALOHA_SUMMER.svg";
@@ -26,6 +25,12 @@ import sinjak from "../assets/gravures/SINJAK.svg";
 import surfTime from "../assets/gravures/SURF_TIME.svg";
 import wavyStyle from "../assets/gravures/WAVY_STYLE.svg";
 import winterHolidays from "../assets/gravures/WINTER_HOLIDAYS.svg";
+
+// Découpes
+import leLoup from "../assets/decoupes/LE_LOUP.svg";
+import laSkull from "../assets/decoupes/LA_SKULL.svg";
+import lancre from "../assets/decoupes/LANCRE.svg";
+import leTriangle from "../assets/decoupes/LE_TRIANGLE.svg";
 
 // Google Pixel imports
 import pixel4 from "../assets/Google Pixel/4.svg";
@@ -619,6 +624,17 @@ export function loadPhoneModels(): PhoneModel[] {
   return [...iPhoneModels, ...samsungModels, ...googlePixelModels];
 }
 
+export function getDecoupe(name: string): { svgString: string } | null {
+  const decoupes: Record<string, { svgString: string }> = {
+    ["Le Loup"]: { svgString: svgURLToString(leLoup) },
+    ["La Skull"]: { svgString: svgURLToString(laSkull) },
+    ["L'Ancre"]: { svgString: svgURLToString(lancre) },
+    ["Le Triangle"]: { svgString: svgURLToString(leTriangle) },
+  };
+
+  return decoupes[name] || null;
+}
+
 export function getGravure(name: string): { svgString: string } | null {
   const gravures: Record<string, { svgString: string }> = {
     ["L'Abstract"]: { svgString: svgURLToString(abstract) },
@@ -715,7 +731,8 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
           let gravurePath = "";
           let gravureViewBoxWidth = 0;
           let gravureViewBoxHeight = 0;
-          const gravureObj = getGravure(visual);
+          const gravureObj = getGravure(visual) || getDecoupe(visual);
+          console.log("GravureObj for visual", visual, gravureObj);
           if (gravureObj) {
             const { svgString: gravure } = gravureObj;
             const gravureContentMatch = gravure.match(
