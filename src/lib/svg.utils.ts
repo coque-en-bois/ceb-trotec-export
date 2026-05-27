@@ -152,6 +152,7 @@ import iphone17 from "../assets/iPhone/17.svg";
 import iphone17Pro from "../assets/iPhone/17PRO.svg";
 import iphone17ProMax from "../assets/iPhone/17PRO-MAX.svg";
 import iphone17Air from "../assets/iPhone/17AIR.svg";
+import iphone17e from "../assets/iPhone/17E.svg";
 
 const svgURLToString = (url: string): string =>
   decodeURI(url.replace(/^data:image\/svg\+xml,/, ""));
@@ -311,6 +312,11 @@ export function loadPhoneModels(): PhoneModel[] {
     {
       name: "iPhone 17 Air",
       svgString: svgURLToString(iphone17Air),
+      brand: "iPhone",
+    },
+    {
+      name: "iPhone 17e",
+      svgString: svgURLToString(iphone17e),
       brand: "iPhone",
     },
   ];
