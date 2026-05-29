@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203 436" version="1.1">
+    <path d="M 16.606 436 L 186.345 435.998" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 0 157.942 L 0 419.395 L 0 157.942 Z" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 70.208 83.753 L 70.208 125.168 L 70.208 83.753 Z" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 33.259 162.117 L 32.094 162.117" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 202.9 419.394 L 202.9 16.557 L 202.9 419.394 Z" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 186.345 0 L 66.273 0" fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 70.012 28.161 C 69.3 21.037 66.535 14.274 62.05 8.692" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 33.259 162.115 C 53.663 162.111 70.202 145.572 70.206 125.168" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 8.74 153.815 C 15.338 159.186 23.584 162.12 32.093 162.115" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path
+        d="M 77.442 76.131 C 93.266 75.148 102.093 57.404 93.329 44.192 C 89.725 38.757 83.76 35.35 77.248 35.007"
+        fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 0 419.394 C -0.014 428.571 7.429 436.013 16.606 436" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 186.345 436 C 195.501 435.986 202.913 428.553 202.9 419.394" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 202.9 16.557 C 202.886 7.419 195.481 0.014 186.345 0" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 70.012 28.161 C 70.391 31.923 73.471 34.836 77.248 35.007" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 77.442 76.131 C 73.382 76.335 70.199 79.689 70.206 83.754" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path
+        d="M 8.74 153.815 C 5.537 151.211 0.718 153.054 0.066 157.129 C 0.024 157.398 0.002 157.67 0 157.94"
+        fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path
+        d="M 66.273 0 C 62.147 -0.018 59.549 4.437 61.594 8.02 C 61.73 8.254 61.881 8.48 62.05 8.692"
+        fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+</svg>

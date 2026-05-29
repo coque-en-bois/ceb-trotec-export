@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.8 411">
+    <path d="M 16.124 410.4 L 175.756 410.4" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 0.44 156.873 L 0.44 394.675 L 0.44 156.873 Z" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 71.457 84.401 L 71.457 124.922 L 71.457 84.401 Z" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 34.556 161.823 L 33.432 161.823" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 191.44 394.675 L 191.44 15.713 L 191.44 394.675 Z" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 175.756 0.029 L 66.714 0.029" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 71.249 28.902 C 70.467 21.504 67.467 14.511 62.638 8.849" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 34.556 161.823 C 54.935 161.828 71.462 145.304 71.457 124.922" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 9.26 152.837 C 15.974 158.644 24.557 161.831 33.432 161.823" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path
+        d="M 78.697 76.787 C 94.495 75.883 103.395 58.217 94.714 44.98 C 91.106 39.487 85.093 36.05 78.53 35.724"
+        fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 0.44 394.675 C 0.424 403.355 7.452 410.396 16.124 410.4" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 175.756 410.4 C 184.433 410.396 191.461 403.355 191.44 394.675" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 191.44 15.713 C 191.436 7.057 184.416 0.033 175.756 0.029" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 71.249 28.902 C 71.636 32.675 74.743 35.582 78.53 35.724" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 78.697 76.787 C 74.638 76.982 71.449 80.334 71.457 84.401" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path
+        d="M 9.26 152.837 C 6.128 150.166 1.275 151.892 0.53 155.94 C 0.473 156.248 0.444 156.559 0.44 156.873"
+        fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path
+        d="M 66.714 0.029 C 62.594 0.025 60.02 4.484 62.076 8.05 C 62.238 8.331 62.426 8.603 62.638 8.849"
+        fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+</svg>

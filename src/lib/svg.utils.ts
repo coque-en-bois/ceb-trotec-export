@@ -54,6 +54,7 @@ import pixel9ProXL from "../assets/Google Pixel/9-PRO-XL.svg";
 import pixel10 from "../assets/Google Pixel/10.svg";
 import pixel10Pro from "../assets/Google Pixel/10-PRO.svg";
 import pixel10ProXL from "../assets/Google Pixel/10-PRO-XL.svg";
+import pixel10a from "../assets/Google Pixel/10A.svg";
 
 // Samsung imports
 import samsungA05S from "../assets/Samsung/A05S.svg";
@@ -101,6 +102,10 @@ import samsungS25 from "../assets/Samsung/S25.svg";
 import samsungS25Plus from "../assets/Samsung/S25-PLUS.svg";
 import samsungS25Ultra from "../assets/Samsung/S25-ULTRA.svg";
 import samsungS25FE from "../assets/Samsung/S25FE.svg";
+
+import samsungS26 from "../assets/Samsung/S26.svg";
+import samsungS26Plus from "../assets/Samsung/S26-PLUS.svg";
+import samsungS26Ultra from "../assets/Samsung/S26-ULTRA.svg";
 
 // Samsung S24 is the only model we keep for now
 
@@ -517,6 +522,21 @@ export function loadPhoneModels(): PhoneModel[] {
       svgString: svgURLToString(samsungS25FE),
       brand: "Samsung",
     },
+    {
+      name: "Samsung S26",
+      svgString: svgURLToString(samsungS26),
+      brand: "Samsung",
+    },
+    {
+      name: "Samsung S26+",
+      svgString: svgURLToString(samsungS26Plus),
+      brand: "Samsung",
+    },
+    {
+      name: "Samsung S26 Ultra",
+      svgString: svgURLToString(samsungS26Ultra),
+      brand: "Samsung",
+    },
   ];
 
   const googlePixelModels = [
@@ -623,6 +643,11 @@ export function loadPhoneModels(): PhoneModel[] {
     {
       name: "Google Pixel 10 Pro XL",
       svgString: svgURLToString(pixel10ProXL),
+      brand: "Google Pixel",
+    },
+    {
+      name: "Google Pixel 10a",
+      svgString: svgURLToString(pixel10a),
       brand: "Google Pixel",
     },
   ];
