@@ -1,41 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 209.5 450" version="1.1">
-    <path d="M 15.747 450 L 193.362 450" fill="none" stroke-width="0.5"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210.5 452.148" version="1.1">
+    <path d="M 15.819 452.054 L 194.245 452.054" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 0 170.33 L 0 434.252 L 0 170.33 Z" fill="none" stroke-width="0.5"
+    <path d="M 0 171.108 L 0 436.235 L 0 171.108 Z" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 75.345 124.373 L 75.345 139.049 L 75.345 124.373 Z" fill="none" stroke-width="0.5"
+    <path d="M 75.689 124.941 L 75.689 139.684 L 75.689 124.941 Z" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 110.554 36.494 L 110.554 90.593 L 110.554 36.494 Z" fill="none" stroke-width="0.5"
+    <path d="M 111.059 36.661 L 111.059 91.007 L 111.059 36.661 Z" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 36.78 177.615 L 36.208 177.615" fill="none" stroke-width="0.5"
+    <path d="M 36.948 178.426 L 36.373 178.426" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 209.145 434.252 L 209.145 15.783 L 209.145 434.252 Z" fill="none" stroke-width="0.5"
+    <path d="M 210.1 436.235 L 210.1 15.855 L 210.1 436.235 Z" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 84.379 116.767 L 82.951 116.767" fill="none" stroke-width="0.5"
+    <path d="M 84.764 117.3 L 83.33 117.3" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 193.362 0 L 102.984 0" fill="none" stroke-width="0.5"
+    <path d="M 194.245 0 L 103.454 0" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 110.554 36.494 C 110.557 26.229 106.471 16.386 99.198 9.141" fill="none"
+    <path d="M 111.059 36.661 C 111.062 26.349 106.957 16.461 99.651 9.183" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 36.78 177.615 C 58.073 177.601 75.331 160.343 75.345 139.049" fill="none"
+    <path d="M 36.948 178.426 C 58.338 178.412 75.675 161.075 75.689 139.684" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 9.106 166.509 C 16.329 173.629 26.066 177.618 36.208 177.615" fill="none"
+    <path d="M 9.148 167.269 C 16.404 174.422 26.185 178.429 36.373 178.426" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 84.379 116.767 C 98.83 116.755 110.542 105.044 110.554 90.593" fill="none"
+    <path d="M 84.764 117.3 C 99.281 117.288 111.047 105.524 111.059 91.007" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 0 434.252 C 0.008 442.946 7.054 449.992 15.747 450" fill="none" stroke-width="0.5"
+    <path d="M 0 436.235 C 0.008 444.969 7.086 452.047 15.819 452.055" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
+    <path d="M 194.245 452.055 C 202.993 452.067 210.092 444.983 210.1 436.235" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
+    <path d="M 210.1 15.855 C 210.112 7.093 203.007 -0.012 194.245 0" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 193.362 450 C 202.07 450.012 209.137 442.96 209.145 434.252" fill="none"
-        stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 209.145 15.783 C 209.157 7.061 202.084 -0.012 193.362 0" fill="none"
-        stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
-    <path d="M 82.951 116.767 C 78.75 116.767 75.345 120.172 75.345 124.373" fill="none"
+    <path d="M 83.33 117.3 C 79.11 117.3 75.689 120.721 75.689 124.941" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
     <path
-        d="M 102.984 0 C 98.863 -0.003 96.284 4.456 98.342 8.026 C 98.577 8.434 98.865 8.809 99.198 9.141"
+        d="M 103.454 0 C 99.314 -0.003 96.724 4.476 98.791 8.063 C 99.027 8.473 99.316 8.849 99.651 9.183"
         fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
     <path
-        d="M 9.106 166.509 C 6.168 163.62 1.204 164.995 0.171 168.984 C 0.057 169.424 0 169.876 0 170.33"
+        d="M 9.148 167.269 C 6.196 164.367 1.209 165.748 0.172 169.756 C 0.057 170.198 0 170.652 0 171.108"
         fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0); transform-origin: 0px 0px;"></path>
 </svg>
