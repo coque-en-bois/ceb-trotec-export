@@ -158,6 +158,10 @@ import iphone17Pro from "../assets/iPhone/17PRO.svg";
 import iphone17ProMax from "../assets/iPhone/17PRO-MAX.svg";
 import iphone17Air from "../assets/iPhone/17AIR.svg";
 import iphone17e from "../assets/iPhone/17E.svg";
+import {
+  getEditionLimiteeData,
+  VISUALS_EDITION_LIMITEE_MAX,
+} from "./edition-limitee";
 
 const svgURLToString = (url: string): string =>
   decodeURI(url.replace(/^data:image\/svg\+xml,/, ""));
@@ -722,13 +726,22 @@ export function getGravure(name: string): { svgString: string } | null {
     },
   };
 
+  if (name.startsWith("Logo CEB - ")) {
+    return gravures["Logo CEB"];
+  }
+
   return gravures[name] || null;
 }
 
 export function generateSVG(templateSvg: string, slots: Slot[]) {
   if (!templateSvg) return "";
 
-  let phonesContent = "";
+  let phonesContent = `
+    <defs>
+      <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap');
+      </style>
+    </defs>`;
 
   slots.forEach(({ model, visual, cmd, inside }, index) => {
     if (model) {
@@ -763,7 +776,6 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
           let gravureViewBoxWidth = 0;
           let gravureViewBoxHeight = 0;
           const gravureObj = getGravure(visual) || getDecoupe(visual);
-          console.log("GravureObj for visual", visual, gravureObj);
           if (gravureObj) {
             const { svgString: gravure } = gravureObj;
             const gravureContentMatch = gravure.match(
@@ -785,10 +797,9 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
             }
           }
 
-          const phoneContourForDisplay =
-            visual === "Logo CEB"
-              ? `<g transform="scale(-1, 1) translate(${-phoneViewBoxWidth}, 0)">${phoneContourPath}</g>`
-              : phoneContourPath;
+          const phoneContourForDisplay = visual.startsWith("Logo CEB")
+            ? `<g transform="scale(-1, 1) translate(${-phoneViewBoxWidth}, 0)">${phoneContourPath}</g>`
+            : phoneContourPath;
 
           phonesContent += `
     <defs>
@@ -804,7 +815,7 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
     <g clip-path="url(#clip-phone-${index})">
       ${
         gravurePath
-          ? visual === "Logo CEB"
+          ? visual.startsWith("Logo CEB")
             ? `<g transform="translate(${slot.x}, ${translateY + phoneViewBoxHeight - slot.height}) scale(${slot.width / gravureViewBoxWidth}, ${
                 slot.height / gravureViewBoxHeight
               })">${gravurePath}</g>`
@@ -814,6 +825,28 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
           : ""
       }
     </g>`;
+
+          const isEditionLimitee = visual.startsWith("Logo CEB - ");
+          if (isEditionLimitee) {
+            const visualName = visual.replace(
+              "Logo CEB - ",
+              "",
+            ) as keyof typeof VISUALS_EDITION_LIMITEE_MAX;
+            const editionLimiteeData = getEditionLimiteeData(visualName, cmd);
+            if (editionLimiteeData) {
+              const { maxCount, currentCount, editionName, visualNameCleaned } =
+                editionLimiteeData;
+              const textCenterX = translateX + phoneViewBoxWidth / 2;
+              const textBaseY = translateY + (phoneViewBoxHeight * 4) / 5;
+              phonesContent += `
+                <text transform="translate(${textCenterX}, ${textBaseY})" font-family="Montserrat, sans-serif" font-size="12" text-anchor="middle" fill="#000">
+                  Édition ${editionName}
+                </text>
+                <text transform="translate(${textCenterX}, ${textBaseY + 20})" font-family="Montserrat, sans-serif" font-size="12" text-anchor="middle" fill="#000">
+                  ${visualNameCleaned} : ${currentCount} / ${maxCount}
+                </text>`;
+            }
+          }
         }
       } catch (err) {
         console.error(`Erreur lors du chargement du smartphone ${index}:`, err);

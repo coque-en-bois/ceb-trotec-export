@@ -106,7 +106,9 @@ export function App() {
         templateSvg,
         pageSlots.map((s) => ({
           ...s,
-          visual: "Logo CEB",
+          visual: s.visual.includes("Édition Limitée")
+            ? `Logo CEB - ${s.visual}`
+            : "Logo CEB",
         })),
       );
       previewsBois.push({ svgContent, type: "Int_Bois" });
@@ -188,12 +190,16 @@ export function App() {
       })
       .map((row: CEBOrderCSVRow) => {
         const modelName = row["Modèle"];
-        const inside = row["Intérieur"];
+        let inside = row["Intérieur"];
         const visual = row["Produit"].split(" - ")[1];
         const type = inferType(row["Essence de bois"], visual);
         const curModel = availableModels.find(
           (m) => m.name.toLowerCase() === modelName.toLowerCase(),
         );
+        const isEditionLimitee = visual.includes("(Édition Limitée)");
+        if (isEditionLimitee) {
+          inside = "Intérieur bois";
+        }
 
         return {
           cmd: row["CMD"],
