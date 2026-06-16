@@ -839,10 +839,10 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
               const textCenterX = translateX + phoneViewBoxWidth / 2;
               const textBaseY = translateY + (phoneViewBoxHeight * 4) / 5;
               phonesContent += `
-                <text transform="translate(${textCenterX}, ${textBaseY})" font-family="Montserrat, sans-serif" font-size="12" text-anchor="middle" fill="#000">
-                  Édition ${editionName}
+                <text transform="translate(${textCenterX}, ${textBaseY})" font-family="Montserrat, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#000">
+                  ${editionName}
                 </text>
-                <text transform="translate(${textCenterX}, ${textBaseY + 20})" font-family="Montserrat, sans-serif" font-size="12" text-anchor="middle" fill="#000">
+                <text transform="translate(${textCenterX}, ${textBaseY + 20})" font-family="Montserrat, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#000">
                   ${visualNameCleaned} : ${currentCount} / ${maxCount}
                 </text>`;
             }
