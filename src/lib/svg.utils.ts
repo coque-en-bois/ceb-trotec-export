@@ -739,7 +739,7 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
   let phonesContent = `
     <defs>
       <style type="text/css">
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;family=Mystery+Quest&amp;display=swap');
       </style>
     </defs>`;
 
@@ -839,10 +839,10 @@ export function generateSVG(templateSvg: string, slots: Slot[]) {
               const textCenterX = translateX + phoneViewBoxWidth / 2;
               const textBaseY = translateY + (phoneViewBoxHeight * 4) / 5;
               phonesContent += `
-                <text transform="translate(${textCenterX}, ${textBaseY})" font-family="Montserrat, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#000">
+                <text transform="translate(${textCenterX}, ${textBaseY})" font-family="'Mystery Quest', cursive" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">
                   ${editionName}
                 </text>
-                <text transform="translate(${textCenterX}, ${textBaseY + 20})" font-family="Montserrat, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#000">
+                <text transform="translate(${textCenterX}, ${textBaseY + 25})" font-family="Montserrat, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#000">
                   ${visualNameCleaned} : ${currentCount} / ${maxCount}
                 </text>`;
             }
