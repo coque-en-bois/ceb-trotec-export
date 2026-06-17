@@ -1,38 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187.17 402" version="1.1">
-    <path d="M 15.311 402 L 171.813 401.998" fill="none" stroke-width="0.5"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 205 438">
+    <path d="M 16.206 437.8 L 189.206 437.8" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 0 145.625 L 0 386.69 L 0 145.625 Z" fill="none" stroke-width="0.5"
+    <path d="M 0.44 157 L 0.44 422 L 0.44 157 Z" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 64.733 77.222 L 64.733 115.407 L 64.733 77.222 Z" fill="none" stroke-width="0.5"
+    <path d="M 71.829 84.843 L 71.829 125.576 L 71.829 84.843 Z" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 30.665 149.475 L 29.591 149.475" fill="none" stroke-width="0.5"
+    <path d="M 34.735 162.67 L 33.605 162.67" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 187.077 386.689 L 187.077 15.266 L 187.077 386.689 Z" fill="none" stroke-width="0.5"
+    <path d="M 204.8 423.795 L 204.8 15.795 L 204.8 423.795 Z" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 171.813 0 L 61.105 0" fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 64.552 25.965 C 63.896 19.396 61.346 13.161 57.211 8.014" fill="none"
+    <path d="M 190.061 0.029 L 67.061 0.029" fill="none" stroke-width="0.5"
+        style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 71.62 29.053 C 70.834 21.616 67.818 14.587 62.964 8.895" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 30.665 149.473 C 49.478 149.469 64.728 134.22 64.731 115.407" fill="none"
+    <path d="M 34.735 162.67 C 55.22 162.675 71.834 146.065 71.829 125.576" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 8.058 141.82 C 14.142 146.772 21.745 149.478 29.59 149.473" fill="none"
+    <path d="M 9.306 153.637 C 16.055 159.474 24.683 162.678 33.605 162.67" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
     <path
-        d="M 71.403 70.194 C 85.993 69.288 94.132 52.928 86.051 40.746 C 82.728 35.735 77.228 32.593 71.224 32.277"
+        d="M 79.107 77.189 C 94.987 76.28 103.934 58.522 95.208 45.215 C 91.581 39.694 85.536 36.239 78.939 35.911"
         fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 0 386.689 C -0.013 395.15 6.85 402.012 15.311 402" fill="none" stroke-width="0.5"
+    <path d="M 0.44 422 C 0.424 430.725 7.489 437.803 16.206 437.807" fill="none" stroke-width="0.5"
         style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 171.813 402 C 180.255 401.987 187.089 395.134 187.077 386.689" fill="none"
+    <path d="M 189 437.807 C 197.722 437.803 204.787 430.725 204.766 422" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 187.077 15.266 C 187.065 6.84 180.237 0.013 171.813 0" fill="none" stroke-width="0.5"
-        style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 64.552 25.965 C 64.902 29.434 67.742 32.119 71.224 32.277" fill="none"
+    <path d="M 204.766 15.795 C 204.762 7.094 197.705 0.033 189 0.029" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
-    <path d="M 71.403 70.194 C 67.66 70.382 64.725 73.475 64.731 77.223" fill="none"
+    <path d="M 71.62 29.053 C 72.009 32.846 75.132 35.768 78.939 35.911" fill="none"
+        stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
+    <path d="M 79.107 77.189 C 75.026 77.385 71.821 80.754 71.829 84.843" fill="none"
         stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
     <path
-        d="M 8.058 141.82 C 5.105 139.419 0.662 141.119 0.061 144.876 C 0.022 145.124 0.002 145.375 0 145.624"
+        d="M 9.306 153.637 C 6.158 150.952 1.279 152.687 0.53 156.756 C 0.473 157.066 0.444 157.378 0.44 157.694"
         fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
     <path
-        d="M 61.105 0 C 57.301 -0.017 54.905 4.091 56.791 7.395 C 56.916 7.61 57.055 7.819 57.211 8.014"
+        d="M 67.061 0.029 C 62.919 0.025 60.332 4.507 62.399 8.092 C 62.562 8.374 62.751 8.648 62.964 8.895"
         fill="none" stroke-width="0.5" style="stroke: rgb(255, 0, 0);"></path>
 </svg>
