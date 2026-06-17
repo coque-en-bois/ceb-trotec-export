@@ -162,6 +162,10 @@ import {
   getEditionLimiteeData,
   VISUALS_EDITION_LIMITEE_MAX,
 } from "./edition-limitee";
+import {
+  MONTSERRAT_WOFF2_BASE64,
+  MYSTERY_QUEST_WOFF2_BASE64,
+} from "./fonts-base64";
 
 const svgURLToString = (url: string): string =>
   decodeURI(url.replace(/^data:image\/svg\+xml,/, ""));
@@ -736,12 +740,29 @@ export function getGravure(name: string): { svgString: string } | null {
 export function generateSVG(templateSvg: string, slots: Slot[]) {
   if (!templateSvg) return "";
 
-  let phonesContent = `
+  const hasEditionLimitee = slots.some(({ visual }) =>
+    visual?.startsWith("Logo CEB - "),
+  );
+
+  let phonesContent = hasEditionLimitee
+    ? `
     <defs>
       <style type="text/css">
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;family=Mystery+Quest&amp;display=swap');
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 400 700;
+          src: url(data:font/woff2;base64,${MONTSERRAT_WOFF2_BASE64}) format('woff2');
+        }
+        @font-face {
+          font-family: 'Mystery Quest';
+          font-style: normal;
+          font-weight: 400;
+          src: url(data:font/woff2;base64,${MYSTERY_QUEST_WOFF2_BASE64}) format('woff2');
+        }
       </style>
-    </defs>`;
+    </defs>`
+    : "";
 
   slots.forEach(({ model, visual, cmd, inside }, index) => {
     if (model) {
