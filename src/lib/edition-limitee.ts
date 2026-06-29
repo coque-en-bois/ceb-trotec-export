@@ -1,10 +1,10 @@
 export const VISUALS_EDITION_LIMITEE_MAX = {
-  "Le Toucan (Édition Limitée)": {
+  "Le Toucan (Édition limitée)": {
     name: "Le Toucan",
     max: 50,
     edition: "Jungle Fluo",
   },
-  "Le Tigre (Édition Limitée)": {
+  "Le Tigre (Édition limitée)": {
     name: "Le Tigre",
     max: 50,
     edition: "Jungle Fluo",
@@ -60,7 +60,7 @@ export const getEditionLimiteeData = (
   }
 
   const visualNameCleaned = visualName.replace(
-    /\s*\(Édition Limitée\)\s*/g,
+    /\s*\(Édition limitée\)\s*/g,
     "",
   ) as keyof typeof VISUALS_EDITION_LIMITEE_MAX;
 

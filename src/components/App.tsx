@@ -106,7 +106,7 @@ export function App() {
         templateSvg,
         pageSlots.map((s) => ({
           ...s,
-          visual: s.visual.includes("Édition Limitée")
+          visual: s.visual.includes("Édition limitée")
             ? `Logo CEB - ${s.visual}`
             : "Logo CEB",
         })),
@@ -196,7 +196,7 @@ export function App() {
         const curModel = availableModels.find(
           (m) => m.name.toLowerCase() === modelName.toLowerCase(),
         );
-        const isEditionLimitee = visual.includes("(Édition Limitée)");
+        const isEditionLimitee = visual.includes("(Édition limitée)");
         if (isEditionLimitee) {
           inside = "Intérieur bois";
         }
